@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\chenwenao\\Source\\Repos\\Lewisliu111\\SchEduSys\\SchEduSys\\SchEduSys.csproj",
+      "projectUniqueName": "C:\\Users\\chenwenao\\source\\repos\\Lewisliu111\\SchEduSys\\SchEduSys.csproj",
       "projectName": "SchEduSys",
-      "projectPath": "C:\\Users\\chenwenao\\Source\\Repos\\Lewisliu111\\SchEduSys\\SchEduSys\\SchEduSys.csproj",
+      "projectPath": "C:\\Users\\chenwenao\\source\\repos\\Lewisliu111\\SchEduSys\\SchEduSys.csproj",
       "packagesPath": "C:\\Users\\chenwenao\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\chenwenao\\Source\\Repos\\Lewisliu111\\SchEduSys\\SchEduSys\\obj\\",
+      "outputPath": "C:\\Users\\chenwenao\\source\\repos\\Lewisliu111\\SchEduSys\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
