@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchEduSysModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="int" Nullable="false" />
+    <Property Name="AdminName" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="AdminGender" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="AdminTelephone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AdminEmail" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AdminPassword" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="course">
+    <Key>
+      <PropertyRef Name="courseId" />
+    </Key>
+    <Property Name="courseId" Type="int" Nullable="false" />
+    <Property Name="courseName" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="courseCreatedTime" Type="date" Nullable="false" />
+    <Property Name="courseLogo" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="courseDescription" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="courseCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="courseCredit" Type="float" Nullable="false" />
+    <Property Name="courseLevel" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="courseType" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="courseDepartmentId" Type="int" Nullable="false" />
+    <Property Name="coursePeriod" Type="int" Nullable="false" />
+    <Property Name="courseFAQ" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="courseGradingPolicy" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="courseRequirements" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="courseandtopic">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="courseId" Type="int" Nullable="false" />
+    <Property Name="topicId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="coursetopic">
+    <Key>
+      <PropertyRef Name="topicId" />
+    </Key>
+    <Property Name="topicId" Type="int" Nullable="false" />
+    <Property Name="topicName" Type="varchar" MaxLength="45" Nullable="false" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="departId" />
+    </Key>
+    <Property Name="departId" Type="int" Nullable="false" />
+    <Property Name="departName" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="departCreatedTime" Type="date" Nullable="false" />
+    <Property Name="departCode" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_course_id">
+    <End Role="course" Type="Self.course" Multiplicity="1" />
+    <End Role="courseandtopic" Type="Self.courseandtopic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="course">
+        <PropertyRef Name="courseId" />
+      </Principal>
+      <Dependent Role="courseandtopic">
+        <PropertyRef Name="courseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_department_id">
+    <End Role="department" Type="Self.department" Multiplicity="1" />
+    <End Role="course" Type="Self.course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="departId" />
+      </Principal>
+      <Dependent Role="course">
+        <PropertyRef Name="courseDepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_topic_id">
+    <End Role="coursetopic" Type="Self.coursetopic" Multiplicity="1" />
+    <End Role="courseandtopic" Type="Self.courseandtopic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="coursetopic">
+        <PropertyRef Name="topicId" />
+      </Principal>
+      <Dependent Role="courseandtopic">
+        <PropertyRef Name="topicId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SchEduSysModelStoreContainer">
+    <EntitySet Name="admin" EntityType="Self.admin" Schema="schedusys" store:Type="Tables" />
+    <EntitySet Name="course" EntityType="Self.course" Schema="schedusys" store:Type="Tables" />
+    <EntitySet Name="courseandtopic" EntityType="Self.courseandtopic" Schema="schedusys" store:Type="Tables" />
+    <EntitySet Name="coursetopic" EntityType="Self.coursetopic" Schema="schedusys" store:Type="Tables" />
+    <EntitySet Name="department" EntityType="Self.department" Schema="schedusys" store:Type="Tables" />
+    <AssociationSet Name="fk_course_id" Association="Self.fk_course_id">
+      <End Role="course" EntitySet="course" />
+      <End Role="courseandtopic" EntitySet="courseandtopic" />
+    </AssociationSet>
+    <AssociationSet Name="fk_department_id" Association="Self.fk_department_id">
+      <End Role="department" EntitySet="department" />
+      <End Role="course" EntitySet="course" />
+    </AssociationSet>
+    <AssociationSet Name="fk_topic_id" Association="Self.fk_topic_id">
+      <End Role="coursetopic" EntitySet="coursetopic" />
+      <End Role="courseandtopic" EntitySet="courseandtopic" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

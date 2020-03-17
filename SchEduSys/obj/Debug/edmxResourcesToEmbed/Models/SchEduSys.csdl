@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchEduSysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="Int32" Nullable="false" />
+    <Property Name="AdminName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdminGender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdminTelephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdminEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdminPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="course">
+    <Key>
+      <PropertyRef Name="courseId" />
+    </Key>
+    <Property Name="courseId" Type="Int32" Nullable="false" />
+    <Property Name="courseName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="courseCreatedTime" Type="DateTime" Nullable="false" />
+    <Property Name="courseLogo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="courseDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="courseCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="courseCredit" Type="Single" Nullable="false" />
+    <Property Name="courseLevel" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="courseType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="courseDepartmentId" Type="Int32" Nullable="false" />
+    <Property Name="coursePeriod" Type="Int32" Nullable="false" />
+    <Property Name="courseFAQ" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="courseGradingPolicy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="courseRequirements" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="courseandtopic" Relationship="Self.fk_course_id" FromRole="course" ToRole="courseandtopic" />
+    <NavigationProperty Name="department" Relationship="Self.fk_department_id" FromRole="course" ToRole="department" />
+  </EntityType>
+  <EntityType Name="courseandtopic">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="courseId" Type="Int32" Nullable="false" />
+    <Property Name="topicId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="course" Relationship="Self.fk_course_id" FromRole="courseandtopic" ToRole="course" />
+    <NavigationProperty Name="coursetopic" Relationship="Self.fk_topic_id" FromRole="courseandtopic" ToRole="coursetopic" />
+  </EntityType>
+  <EntityType Name="coursetopic">
+    <Key>
+      <PropertyRef Name="topicId" />
+    </Key>
+    <Property Name="topicId" Type="Int32" Nullable="false" />
+    <Property Name="topicName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="courseandtopic" Relationship="Self.fk_topic_id" FromRole="coursetopic" ToRole="courseandtopic" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="departId" />
+    </Key>
+    <Property Name="departId" Type="Int32" Nullable="false" />
+    <Property Name="departName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="departCreatedTime" Type="DateTime" Nullable="false" />
+    <Property Name="departCode" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="course" Relationship="Self.fk_department_id" FromRole="department" ToRole="course" />
+  </EntityType>
+  <Association Name="fk_course_id">
+    <End Role="course" Type="Self.course" Multiplicity="1" />
+    <End Role="courseandtopic" Type="Self.courseandtopic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="course">
+        <PropertyRef Name="courseId" />
+      </Principal>
+      <Dependent Role="courseandtopic">
+        <PropertyRef Name="courseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_department_id">
+    <End Role="department" Type="Self.department" Multiplicity="1" />
+    <End Role="course" Type="Self.course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="departId" />
+      </Principal>
+      <Dependent Role="course">
+        <PropertyRef Name="courseDepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_topic_id">
+    <End Role="coursetopic" Type="Self.coursetopic" Multiplicity="1" />
+    <End Role="courseandtopic" Type="Self.courseandtopic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="coursetopic">
+        <PropertyRef Name="topicId" />
+      </Principal>
+      <Dependent Role="courseandtopic">
+        <PropertyRef Name="topicId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SchEduSysEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="admin" EntityType="Self.admin" />
+    <EntitySet Name="course" EntityType="Self.course" />
+    <EntitySet Name="courseandtopic" EntityType="Self.courseandtopic" />
+    <EntitySet Name="coursetopic" EntityType="Self.coursetopic" />
+    <EntitySet Name="department" EntityType="Self.department" />
+    <AssociationSet Name="fk_course_id" Association="Self.fk_course_id">
+      <End Role="course" EntitySet="course" />
+      <End Role="courseandtopic" EntitySet="courseandtopic" />
+    </AssociationSet>
+    <AssociationSet Name="fk_department_id" Association="Self.fk_department_id">
+      <End Role="department" EntitySet="department" />
+      <End Role="course" EntitySet="course" />
+    </AssociationSet>
+    <AssociationSet Name="fk_topic_id" Association="Self.fk_topic_id">
+      <End Role="coursetopic" EntitySet="coursetopic" />
+      <End Role="courseandtopic" EntitySet="courseandtopic" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

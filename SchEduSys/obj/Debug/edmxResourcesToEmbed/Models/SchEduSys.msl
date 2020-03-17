@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SchEduSysModelStoreContainer" CdmEntityContainer="SchEduSysEntities">
+    <EntitySetMapping Name="admin">
+      <EntityTypeMapping TypeName="SchEduSysModel.admin">
+        <MappingFragment StoreEntitySet="admin">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+          <ScalarProperty Name="AdminGender" ColumnName="AdminGender" />
+          <ScalarProperty Name="AdminTelephone" ColumnName="AdminTelephone" />
+          <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
+          <ScalarProperty Name="AdminPassword" ColumnName="AdminPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="course">
+      <EntityTypeMapping TypeName="SchEduSysModel.course">
+        <MappingFragment StoreEntitySet="course">
+          <ScalarProperty Name="courseId" ColumnName="courseId" />
+          <ScalarProperty Name="courseName" ColumnName="courseName" />
+          <ScalarProperty Name="courseCreatedTime" ColumnName="courseCreatedTime" />
+          <ScalarProperty Name="courseLogo" ColumnName="courseLogo" />
+          <ScalarProperty Name="courseDescription" ColumnName="courseDescription" />
+          <ScalarProperty Name="courseCode" ColumnName="courseCode" />
+          <ScalarProperty Name="courseCredit" ColumnName="courseCredit" />
+          <ScalarProperty Name="courseLevel" ColumnName="courseLevel" />
+          <ScalarProperty Name="courseType" ColumnName="courseType" />
+          <ScalarProperty Name="courseDepartmentId" ColumnName="courseDepartmentId" />
+          <ScalarProperty Name="coursePeriod" ColumnName="coursePeriod" />
+          <ScalarProperty Name="courseFAQ" ColumnName="courseFAQ" />
+          <ScalarProperty Name="courseGradingPolicy" ColumnName="courseGradingPolicy" />
+          <ScalarProperty Name="courseRequirements" ColumnName="courseRequirements" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="courseandtopic">
+      <EntityTypeMapping TypeName="SchEduSysModel.courseandtopic">
+        <MappingFragment StoreEntitySet="courseandtopic">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="courseId" ColumnName="courseId" />
+          <ScalarProperty Name="topicId" ColumnName="topicId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="coursetopic">
+      <EntityTypeMapping TypeName="SchEduSysModel.coursetopic">
+        <MappingFragment StoreEntitySet="coursetopic">
+          <ScalarProperty Name="topicId" ColumnName="topicId" />
+          <ScalarProperty Name="topicName" ColumnName="topicName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="department">
+      <EntityTypeMapping TypeName="SchEduSysModel.department">
+        <MappingFragment StoreEntitySet="department">
+          <ScalarProperty Name="departId" ColumnName="departId" />
+          <ScalarProperty Name="departName" ColumnName="departName" />
+          <ScalarProperty Name="departCreatedTime" ColumnName="departCreatedTime" />
+          <ScalarProperty Name="departCode" ColumnName="departCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
