@@ -343,8 +343,8 @@
     <Content Include="Global.asax" />
     <Content Include="Models\SchEduSys.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SchEduSys.Context.cs</LastGenOutput>
       <DependentUpon>SchEduSys.edmx</DependentUpon>
+      <LastGenOutput>SchEduSys.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\SchEduSys.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

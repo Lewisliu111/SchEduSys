@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="AdminId" />
           </Key>
-          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AdminName" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="AdminGender" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="AdminTelephone" Type="varchar" MaxLength="20" Nullable="false" />
@@ -20,7 +20,7 @@
           <Key>
             <PropertyRef Name="courseId" />
           </Key>
-          <Property Name="courseId" Type="int" Nullable="false" />
+          <Property Name="courseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="courseName" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="courseCreatedTime" Type="date" Nullable="false" />
           <Property Name="courseLogo" Type="varchar" MaxLength="45" Nullable="false" />
@@ -39,7 +39,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="courseId" Type="int" Nullable="false" />
           <Property Name="topicId" Type="int" Nullable="false" />
         </EntityType>
@@ -47,14 +47,14 @@
           <Key>
             <PropertyRef Name="topicId" />
           </Key>
-          <Property Name="topicId" Type="int" Nullable="false" />
+          <Property Name="topicId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="topicName" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="department">
           <Key>
             <PropertyRef Name="departId" />
           </Key>
-          <Property Name="departId" Type="int" Nullable="false" />
+          <Property Name="departId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="departName" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="departCreatedTime" Type="date" Nullable="false" />
           <Property Name="departCode" Type="int" Nullable="false" />
@@ -123,7 +123,7 @@
           <Key>
             <PropertyRef Name="AdminId" />
           </Key>
-          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AdminName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdminGender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdminTelephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
@@ -134,7 +134,7 @@
           <Key>
             <PropertyRef Name="courseId" />
           </Key>
-          <Property Name="courseId" Type="Int32" Nullable="false" />
+          <Property Name="courseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="courseName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="courseCreatedTime" Type="DateTime" Nullable="false" />
           <Property Name="courseLogo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
@@ -155,7 +155,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="courseId" Type="Int32" Nullable="false" />
           <Property Name="topicId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="course" Relationship="Self.fk_course_id" FromRole="courseandtopic" ToRole="course" />
@@ -165,7 +165,7 @@
           <Key>
             <PropertyRef Name="topicId" />
           </Key>
-          <Property Name="topicId" Type="Int32" Nullable="false" />
+          <Property Name="topicId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="topicName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="courseandtopic" Relationship="Self.fk_topic_id" FromRole="coursetopic" ToRole="courseandtopic" />
         </EntityType>
@@ -173,7 +173,7 @@
           <Key>
             <PropertyRef Name="departId" />
           </Key>
-          <Property Name="departId" Type="Int32" Nullable="false" />
+          <Property Name="departId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="departName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="departCreatedTime" Type="DateTime" Nullable="false" />
           <Property Name="departCode" Type="Int32" Nullable="false" />
