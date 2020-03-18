@@ -15,6 +15,8 @@
           <Property Name="AdminTelephone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="AdminEmail" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="AdminPassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AdminIdCard" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AdminRealName" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="course">
           <Key>
@@ -129,6 +131,8 @@
           <Property Name="AdminTelephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdminEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdminPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminIdCard" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminRealName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="course">
           <Key>
@@ -249,6 +253,8 @@
                 <ScalarProperty Name="AdminTelephone" ColumnName="AdminTelephone" />
                 <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
                 <ScalarProperty Name="AdminPassword" ColumnName="AdminPassword" />
+                <ScalarProperty Name="AdminIdCard" ColumnName="AdminIdCard" />
+                <ScalarProperty Name="AdminRealName" ColumnName="AdminRealName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
