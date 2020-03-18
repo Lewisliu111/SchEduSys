@@ -34,11 +34,23 @@ namespace SchEduSys.Controllers
         //删除一个课程类型，例如：数学类
         public bool DropATopic(String dName)
         {
-            coursetopic dTopic = schEduSysEntities.coursetopic.FirstOrDefault(m => m.topicName == dName);
+            coursetopic dTopic = schEduSysEntities.coursetopic.FirstOrDefault(tp => tp.topicName == dName);
             if (dTopic == null)
             {
                 return false;
             }
+            //删除courseandTopic表的数据
+            while (true)
+            {
+                courseandtopic dcourseandtopic = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.topicId == dTopic.topicId);
+                if (dcourseandtopic == null)
+                {
+                    break;
+                }
+                schEduSysEntities.courseandtopic.Remove(dcourseandtopic);
+                schEduSysEntities.SaveChanges();
+            }
+            //删除coursetopic表的数据。
             schEduSysEntities.coursetopic.Remove(dTopic);
             schEduSysEntities.SaveChanges();
             return true;
