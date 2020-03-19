@@ -22,5 +22,6 @@ namespace SchEduSys.Models
         public string AdminPassword { get; set; }
         public string AdminIdCard { get; set; }
         public string AdminRealName { get; set; }
+        public string xxxx { get; set; }
     }
 }

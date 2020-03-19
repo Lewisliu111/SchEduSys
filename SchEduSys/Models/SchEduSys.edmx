@@ -17,6 +17,7 @@
           <Property Name="AdminPassword" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="AdminIdCard" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="AdminRealName" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="xxxx" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="course">
           <Key>
@@ -32,6 +33,7 @@
           <Property Name="courseLevel" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="courseType" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="courseDepartmentId" Type="int" Nullable="false" />
+          <Property Name="courseDepartmentName" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="coursePeriod" Type="int" Nullable="false" />
           <Property Name="courseFAQ" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="courseGradingPolicy" Type="varchar" MaxLength="200" Nullable="false" />
@@ -133,6 +135,7 @@
           <Property Name="AdminPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdminIdCard" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdminRealName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xxxx" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="course">
           <Key>
@@ -148,6 +151,7 @@
           <Property Name="courseLevel" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="courseType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="courseDepartmentId" Type="Int32" Nullable="false" />
+          <Property Name="courseDepartmentName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="coursePeriod" Type="Int32" Nullable="false" />
           <Property Name="courseFAQ" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="courseGradingPolicy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
@@ -255,6 +259,7 @@
                 <ScalarProperty Name="AdminPassword" ColumnName="AdminPassword" />
                 <ScalarProperty Name="AdminIdCard" ColumnName="AdminIdCard" />
                 <ScalarProperty Name="AdminRealName" ColumnName="AdminRealName" />
+                <ScalarProperty Name="xxxx" ColumnName="xxxx" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -271,6 +276,7 @@
                 <ScalarProperty Name="courseLevel" ColumnName="courseLevel" />
                 <ScalarProperty Name="courseType" ColumnName="courseType" />
                 <ScalarProperty Name="courseDepartmentId" ColumnName="courseDepartmentId" />
+                <ScalarProperty Name="courseDepartmentName" ColumnName="courseDepartmentName" />
                 <ScalarProperty Name="coursePeriod" ColumnName="coursePeriod" />
                 <ScalarProperty Name="courseFAQ" ColumnName="courseFAQ" />
                 <ScalarProperty Name="courseGradingPolicy" ColumnName="courseGradingPolicy" />

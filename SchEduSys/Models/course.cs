@@ -30,6 +30,7 @@ namespace SchEduSys.Models
         public string courseLevel { get; set; }
         public string courseType { get; set; }
         public int courseDepartmentId { get; set; }
+        public string courseDepartmentName { get; set; }
         public int coursePeriod { get; set; }
         public string courseFAQ { get; set; }
         public string courseGradingPolicy { get; set; }
