@@ -11,8 +11,6 @@ namespace SchEduSys.Controllers
     public class TopicController : Controller
     {
         public SchEduSysEntities schEduSysEntities = new SchEduSysEntities();
-
-
         //添加一个课程类型，例如：计算机类
         public bool AddATopic(String tName)
         {
@@ -30,8 +28,6 @@ namespace SchEduSys.Controllers
             }
             return true;
         }
-
-
 
         //删除一个课程类型，例如：数学类
         public bool DropATopic(String dName)
@@ -58,9 +54,7 @@ namespace SchEduSys.Controllers
             return true;
         }
 
-
-
-        //修改课程的信息
+        //修改课程类型的信息
         public bool ModifyTopic(String oldTopicName, String NewTopicName)
         {
             coursetopic TheTopic = schEduSysEntities.coursetopic.FirstOrDefault(ct => ct.topicName == oldTopicName);
@@ -69,6 +63,13 @@ namespace SchEduSys.Controllers
             TheTopic.topicName = NewTopicName;
             schEduSysEntities.SaveChanges();
             return true;
+        }
+
+        //获得所有的课程类型。
+        public void GetAllTopics()
+        {
+            List<coursetopic> coursetopics = schEduSysEntities.coursetopic.ToList();
+            ViewBag.coursetopics = coursetopics;
         }
     }
 }
