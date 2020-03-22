@@ -26,7 +26,7 @@
           <Property Name="courseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="courseName" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="courseStartTime" Type="date" Nullable="false" />
-          <Property Name="courseLogo" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="courseLogo" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="courseDescription" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="courseCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="courseCredit" Type="float" Nullable="false" />
@@ -144,7 +144,7 @@
           <Property Name="courseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="courseName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="courseStartTime" Type="DateTime" Nullable="false" />
-          <Property Name="courseLogo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="courseLogo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="courseDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="courseCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="courseCredit" Type="Single" Nullable="false" />

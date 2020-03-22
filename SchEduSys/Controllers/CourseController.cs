@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,6 +24,7 @@ namespace SchEduSys.Controllers
         {
             ViewBag.AddCourseErrorLog = null;
             //判断该课程是否可以加入。
+            #region
             course course_already_in = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
             if (course_already_in != null)
             {
@@ -29,13 +32,16 @@ namespace SchEduSys.Controllers
                 return false;
             }
             //判断学院是否存在。
+
             department department_in = schEduSysEntities.department.FirstOrDefault(de => de.departName == departmentName);
             if (department_in == null)
             {
                 ViewBag.AddCourseErrorLog = "学院不存在，请先创建学院！";
                 return false;
             }
-            //新建course对象
+            #endregion
+
+            //若可以加入，则新建course对象
             course newcourse = new course()
             {
                 courseName = courseName,
@@ -53,10 +59,57 @@ namespace SchEduSys.Controllers
                 courseGradingPolicy = courseGradingPolicy,
                 courseRequirements = courseRequirements
             };
+
+            //把图片存到服务器，并且获取地址，存入courseLogo。
+            #region
+            if (Request.Files.Count == 0)
+            {
+                ViewBag.AddCourseErrorLog = "没上传课程图片，请上传！";
+                return false;
+            }
+            String uploadPath = Server.MapPath("../Views/Picture/CoursePics/");
+            // 保存文件到"/Views/Picture/CoursePics/"文件夹
+            for (int i = 0; i < Request.Files.Count; ++i)
+            {
+                HttpPostedFileBase picture = Request.Files[i];
+                //若文件名为空，证明没有选择上传文件。
+                if (picture.FileName == "")
+                {
+                    ViewBag.AddCourseErrorLog = "没有选择上传文件";
+                    return false;
+                }
+                String PicPath = uploadPath + Path.GetFileName(picture.FileName);
+                String PicName = picture.FileName;
+                // 检查上传文件的类型是否为合法图片。
+                String PicExtension = Path.GetExtension(PicPath).ToLower();
+                String PicFilter = ConfigurationManager.AppSettings["FileFilter"];
+                if (PicFilter.IndexOf(PicExtension) <= -1)
+                {
+                    ViewBag.AddCourseErrorLog = "对不起！请上传图片！！";
+                    return false;
+                }
+                // 如果服务器上已经存在同名图片，则需要修改文件名与其储存路径。
+                while (System.IO.File.Exists(PicPath))
+                {
+                    Random rand = new Random();
+                    PicName = rand.Next().ToString() + "-" + picture.FileName;
+                    PicPath = uploadPath + Path.GetFileName(PicName);
+                }
+                // 把图片的存储路径保存到courseLogo中
+                newcourse.courseLogo = PicPath;
+                // 保存文件到服务器
+                picture.SaveAs(PicPath);
+            }
+            #endregion
+
+
             schEduSysEntities.course.Add(newcourse);
             schEduSysEntities.SaveChanges();
             newcourse = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
+
+
             //将课程与课程类型进行绑定。
+            #region
             String[] courseTopicNames = courseTopicNameStr.Split('，');
             foreach (String courseTopicName in courseTopicNames)
             {
@@ -69,6 +122,7 @@ namespace SchEduSys.Controllers
                 schEduSysEntities.courseandtopic.Add(newcourseandtopic);
             }
             schEduSysEntities.SaveChanges();
+            #endregion
             return true;
         }
 

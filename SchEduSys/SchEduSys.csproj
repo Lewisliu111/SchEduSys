@@ -416,6 +416,7 @@
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Course\" />
     <Folder Include="Views\Department\" />
+    <Folder Include="Views\Picture\CoursePics\" />
     <Folder Include="Views\Topic\" />
   </ItemGroup>
   <ItemGroup>
