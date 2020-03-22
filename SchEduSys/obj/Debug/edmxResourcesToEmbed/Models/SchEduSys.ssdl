@@ -4,20 +4,23 @@
     <Key>
       <PropertyRef Name="AdminId" />
     </Key>
-    <Property Name="AdminId" Type="int" Nullable="false" />
+    <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AdminName" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="AdminGender" Type="char" MaxLength="1" Nullable="false" />
     <Property Name="AdminTelephone" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="AdminEmail" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="AdminPassword" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AdminIdCard" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AdminRealName" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="xxxx" Type="varchar" MaxLength="45" />
   </EntityType>
   <EntityType Name="course">
     <Key>
       <PropertyRef Name="courseId" />
     </Key>
-    <Property Name="courseId" Type="int" Nullable="false" />
+    <Property Name="courseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="courseName" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="courseCreatedTime" Type="date" Nullable="false" />
+    <Property Name="courseStartTime" Type="date" Nullable="false" />
     <Property Name="courseLogo" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="courseDescription" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="courseCode" Type="varchar" MaxLength="10" Nullable="false" />
@@ -25,6 +28,7 @@
     <Property Name="courseLevel" Type="char" MaxLength="1" Nullable="false" />
     <Property Name="courseType" Type="char" MaxLength="1" Nullable="false" />
     <Property Name="courseDepartmentId" Type="int" Nullable="false" />
+    <Property Name="courseDepartmentName" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="coursePeriod" Type="int" Nullable="false" />
     <Property Name="courseFAQ" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="courseGradingPolicy" Type="varchar" MaxLength="200" Nullable="false" />
@@ -34,7 +38,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="courseId" Type="int" Nullable="false" />
     <Property Name="topicId" Type="int" Nullable="false" />
   </EntityType>
@@ -42,14 +46,14 @@
     <Key>
       <PropertyRef Name="topicId" />
     </Key>
-    <Property Name="topicId" Type="int" Nullable="false" />
+    <Property Name="topicId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="topicName" Type="varchar" MaxLength="45" Nullable="false" />
   </EntityType>
   <EntityType Name="department">
     <Key>
       <PropertyRef Name="departId" />
     </Key>
-    <Property Name="departId" Type="int" Nullable="false" />
+    <Property Name="departId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="departName" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="departCreatedTime" Type="date" Nullable="false" />
     <Property Name="departCode" Type="int" Nullable="false" />

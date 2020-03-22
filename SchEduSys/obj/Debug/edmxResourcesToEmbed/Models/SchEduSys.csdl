@@ -4,20 +4,23 @@
     <Key>
       <PropertyRef Name="AdminId" />
     </Key>
-    <Property Name="AdminId" Type="Int32" Nullable="false" />
+    <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="AdminName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="AdminGender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="AdminTelephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="AdminEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="AdminPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdminIdCard" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdminRealName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xxxx" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="course">
     <Key>
       <PropertyRef Name="courseId" />
     </Key>
-    <Property Name="courseId" Type="Int32" Nullable="false" />
+    <Property Name="courseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="courseName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="courseCreatedTime" Type="DateTime" Nullable="false" />
+    <Property Name="courseStartTime" Type="DateTime" Nullable="false" />
     <Property Name="courseLogo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="courseDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="courseCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
@@ -25,6 +28,7 @@
     <Property Name="courseLevel" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="courseType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="courseDepartmentId" Type="Int32" Nullable="false" />
+    <Property Name="courseDepartmentName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="coursePeriod" Type="Int32" Nullable="false" />
     <Property Name="courseFAQ" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="courseGradingPolicy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
@@ -36,7 +40,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="courseId" Type="Int32" Nullable="false" />
     <Property Name="topicId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="course" Relationship="Self.fk_course_id" FromRole="courseandtopic" ToRole="course" />
@@ -46,7 +50,7 @@
     <Key>
       <PropertyRef Name="topicId" />
     </Key>
-    <Property Name="topicId" Type="Int32" Nullable="false" />
+    <Property Name="topicId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="topicName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="courseandtopic" Relationship="Self.fk_topic_id" FromRole="coursetopic" ToRole="courseandtopic" />
   </EntityType>
@@ -54,7 +58,7 @@
     <Key>
       <PropertyRef Name="departId" />
     </Key>
-    <Property Name="departId" Type="Int32" Nullable="false" />
+    <Property Name="departId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="departName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="departCreatedTime" Type="DateTime" Nullable="false" />
     <Property Name="departCode" Type="Int32" Nullable="false" />

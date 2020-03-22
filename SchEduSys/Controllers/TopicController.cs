@@ -12,11 +12,17 @@ namespace SchEduSys.Controllers
     {
         private SchEduSysEntities schEduSysEntities = new SchEduSysEntities();
         //添加一个课程类型，例如：计算机类
-        public bool AddATopic(String tName)
+        public bool AddTopic(String topicName)
         {
+            coursetopic topic_in = schEduSysEntities.coursetopic.FirstOrDefault(ct => ct.topicName == topicName);
+            if(topic_in!=null)
+            {
+                ViewBag.AddTopicErrorLog = "课程类型已经存在！";
+                return false;
+            }
             coursetopic newtopic = new coursetopic()
             {
-                topicName = tName
+                topicName = topicName
             };
             try
             {
@@ -26,21 +32,23 @@ namespace SchEduSys.Controllers
             {
                 return false;
             }
+            schEduSysEntities.SaveChanges();
             return true;
         }
 
         //删除一个课程类型，例如：数学类
-        public bool DropATopic(String dName)
+        public bool DropTopic(String topicName)
         {
-            coursetopic dTopic = schEduSysEntities.coursetopic.FirstOrDefault(tp => tp.topicName == dName);
-            if (dTopic == null)
+            coursetopic topic_drop = schEduSysEntities.coursetopic.FirstOrDefault(tp => tp.topicName == topicName);
+            if (topic_drop == null)
             {
+                ViewBag.DropTopicErrorLog = "要删除的课程类型本来就不存在！";
                 return false;
             }
             //删除courseandTopic表的数据
             while (true)
             {
-                courseandtopic dcourseandtopic = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.topicId == dTopic.topicId);
+                courseandtopic dcourseandtopic = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.topicId == topic_drop.topicId);
                 if (dcourseandtopic == null)
                 {
                     break;
@@ -49,7 +57,7 @@ namespace SchEduSys.Controllers
                 schEduSysEntities.SaveChanges();
             }
             //删除coursetopic表的数据。
-            schEduSysEntities.coursetopic.Remove(dTopic);
+            schEduSysEntities.coursetopic.Remove(topic_drop);
             schEduSysEntities.SaveChanges();
             return true;
         }
@@ -57,6 +65,12 @@ namespace SchEduSys.Controllers
         //修改课程类型的信息
         public bool ModifyTopic(String oldTopicName, String NewTopicName)
         {
+            coursetopic topic_in = schEduSysEntities.coursetopic.FirstOrDefault(ct => ct.topicName == NewTopicName);
+            if (topic_in != null)
+            {
+                ViewBag.ModifyTopicErrorLog = "新的课程类型已经存在！";
+                return false;
+            }
             coursetopic TheTopic = schEduSysEntities.coursetopic.FirstOrDefault(ct => ct.topicName == oldTopicName);
             if (TheTopic == null)
                 return false;
