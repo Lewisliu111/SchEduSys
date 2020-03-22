@@ -10,7 +10,7 @@ namespace SchEduSys.Controllers
 {
     public class TopicController : Controller
     {
-        public SchEduSysEntities schEduSysEntities = new SchEduSysEntities();
+        private SchEduSysEntities schEduSysEntities = new SchEduSysEntities();
         //添加一个课程类型，例如：计算机类
         public bool AddATopic(String tName)
         {

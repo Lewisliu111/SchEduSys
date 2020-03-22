@@ -9,10 +9,17 @@ namespace SchEduSys.Controllers
 {
     public class CourseController : Controller
     {
+        private SchEduSysEntities schEduSysEntities = new SchEduSysEntities();
         // GET: Course
-        public ActionResult Index()
+        public bool AddACourse(String courseName,DateTime course)
         {
-            return View();
+            course course_already_in=schEduSysEntities.course.Where(co=>co.)
+
+            course newcourse = new course
+            {
+
+            };
+            return true;
         }
     }
 }

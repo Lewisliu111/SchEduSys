@@ -22,7 +22,7 @@ namespace SchEduSys.Models
     
         public int courseId { get; set; }
         public string courseName { get; set; }
-        public System.DateTime courseCreatedTime { get; set; }
+        public System.DateTime courseStartTime { get; set; }
         public string courseLogo { get; set; }
         public string courseDescription { get; set; }
         public string courseCode { get; set; }
