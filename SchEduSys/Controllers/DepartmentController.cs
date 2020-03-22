@@ -12,6 +12,7 @@ namespace SchEduSys.Controllers
     {
         private SchEduSysEntities schEduSysEntities = new SchEduSysEntities();
         //添加一个学院。
+        [HttpPost]
         public bool AddDepartment(String departName,DateTime departCreatedTime,int departCode)
         {
             department department_in = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
@@ -39,6 +40,7 @@ namespace SchEduSys.Controllers
         }
 
         //修改学院的相关信息。
+        [HttpPost]
         public bool ModifyDepartment(String oldDepartName,String newDepartName,DateTime departCreatedTime,int departCode)
         {
             department department_in = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == newDepartName);
@@ -67,6 +69,7 @@ namespace SchEduSys.Controllers
         }
 
         //删除一个学院。
+        [HttpPost]
         public bool DropDepartment(String departName)
         {
             department department_drop = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
@@ -109,6 +112,22 @@ namespace SchEduSys.Controllers
         {
             List<department> departments = schEduSysEntities.department.ToList();
             ViewBag.departments = departments;
+        }
+
+
+        //查询指定学院的相关信息。
+        [HttpPost]
+        public void GetDepartmentByName(String departName)
+        {
+            department department_get = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
+            ViewBag.department_get = department_get;
+        }
+
+        [HttpPost]
+        public void GetDepartmentByCode(int departCode)
+        {
+            department department_get = schEduSysEntities.department.FirstOrDefault(dp => dp.departCode == departCode);
+            ViewBag.department_get = department_get;
         }
     }
 }

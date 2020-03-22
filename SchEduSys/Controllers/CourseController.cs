@@ -17,6 +17,7 @@ namespace SchEduSys.Controllers
 
 
         //新建一个课程。
+        [HttpPost]
         public bool AddCourse(String courseName, DateTime courseStartTime, String courseLogo, String courseDescription, String courseCode, float courseCredit, String courseLevel, String courseType, String departmentName, int coursePeriod, String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
         {
             ViewBag.AddCourseErrorLog = null;
@@ -72,6 +73,7 @@ namespace SchEduSys.Controllers
         }
 
         //修改指定id的课程。
+        [HttpPost]
         public bool ModifyCourse(int courseId, String courseName, DateTime courseStartTime, String courseLogo, String courseDescription, String courseCode, float courseCredit, String courseLevel, String courseType, String departmentName, int coursePeriod, String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
         {
             ViewBag.ModifyCourseErrorLog = null;
@@ -139,6 +141,7 @@ namespace SchEduSys.Controllers
         }
 
         //删除指定id的课程。
+        [HttpPost]
         public bool DropCourse(int courseId)
         {
             course course_drop = schEduSysEntities.course.Find(courseId);
