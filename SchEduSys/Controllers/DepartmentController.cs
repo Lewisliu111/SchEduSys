@@ -69,7 +69,6 @@ namespace SchEduSys.Controllers
         }
 
         //删除一个学院。
-        [HttpPost]
         public bool DropDepartment(String departName)
         {
             department department_drop = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
@@ -86,6 +85,15 @@ namespace SchEduSys.Controllers
                 {
                     break;
                 }
+
+                //删除课程图片。
+                #region
+                int index = course_drop.courseLogo.LastIndexOf('\\');
+                String PicName = course_drop.courseLogo.Substring(index + 1);
+                String PicPath = Server.MapPath("../Views/images/courseimages/" + PicName);
+                System.IO.File.Delete(PicPath);
+                #endregion
+
                 //删除courseandTopic表的数据。
                 while (true)
                 {
@@ -114,16 +122,13 @@ namespace SchEduSys.Controllers
             ViewBag.departments = departments;
         }
 
-
         //查询指定学院的相关信息。
-        [HttpPost]
         public void GetDepartmentByName(String departName)
         {
             department department_get = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
             ViewBag.department_get = department_get;
         }
 
-        [HttpPost]
         public void GetDepartmentByCode(int departCode)
         {
             department department_get = schEduSysEntities.department.FirstOrDefault(dp => dp.departCode == departCode);

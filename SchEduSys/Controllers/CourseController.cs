@@ -67,7 +67,7 @@ namespace SchEduSys.Controllers
                 ViewBag.AddCourseErrorLog = "没上传课程图片，请上传！";
                 return false;
             }
-            String uploadPath = Server.MapPath("../Views/Picture/CoursePics/");
+            String uploadPath = Server.MapPath("../Views/images/courseimages/");
             // 保存文件到"/Views/Picture/CoursePics/"文件夹
             for (int i = 0; i < Request.Files.Count; ++i)
             {
@@ -102,11 +102,12 @@ namespace SchEduSys.Controllers
             }
             #endregion
 
-
+            //添加课程。
+            #region
             schEduSysEntities.course.Add(newcourse);
             schEduSysEntities.SaveChanges();
             newcourse = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
-
+            #endregion
 
             //将课程与课程类型进行绑定。
             #region
@@ -128,33 +129,95 @@ namespace SchEduSys.Controllers
 
         //修改指定id的课程。
         [HttpPost]
-        public bool ModifyCourse(int courseId, String courseName, DateTime courseStartTime, String courseLogo, String courseDescription, String courseCode, float courseCredit, String courseLevel, String courseType, String departmentName, int coursePeriod, String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
+        public bool ModifyCourse(int courseId, String courseName, DateTime courseStartTime, String courseDescription, String courseCode, float courseCredit, String courseLevel, String courseType, String departmentName, int coursePeriod, String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
         {
             ViewBag.ModifyCourseErrorLog = null;
             //判断要修改的课程是否存在。
+            #region
             course TheCourse = schEduSysEntities.course.Find(courseId);
             if (TheCourse == null)
             {
                 ViewBag.ModifyCourseErrorLog = "要修改的课程不存在！";
                 return false;
             }
+            #endregion
+
             //判断新输入的课程代码是否已经存在。
+            #region
             course course_already_in = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
             if (course_already_in != null)
             {
                 ViewBag.AddCourseErrorLog = "新的课程代码已存在，请重新输入！";
                 return false;
             }
+            #endregion
+
             //判断新的学院是否不存在。
+            #region
             department department_in = schEduSysEntities.department.FirstOrDefault(de => de.departName == departmentName);
             if (department_in == null)
             {
                 ViewBag.AddCourseErrorLog = "新的学院不存在，请先创建学院！";
                 return false;
             }
+            #endregion
+
+            //删除旧的课程图片。
+            #region
+            String uploadPath = Server.MapPath("../Views/images/courseimages/");
+            int index = TheCourse.courseLogo.LastIndexOf('\\');
+            String oldPicName = TheCourse.courseLogo.Substring(index + 1);
+            String oldPicPath = uploadPath + oldPicName;
+            System.IO.File.Delete(oldPicPath);
+            #endregion
+
+            //将新的图片插入数据库。
+            #region
+            if (Request.Files.Count == 0)
+            {
+                ViewBag.AddCourseErrorLog = "没上传新的课程图片，请上传！";
+                return false;
+            }
+            // 保存文件到"/Views/Picture/CoursePics/"文件夹
+            for (int i = 0; i < Request.Files.Count; ++i)
+            {
+                HttpPostedFileBase picture = Request.Files[i];
+                //若文件名为空，证明没有选择上传文件。
+                if (picture.FileName == "")
+                {
+                    ViewBag.AddCourseErrorLog = "没有选择上传文件";
+                    return false;
+                }
+                String newPicPath = uploadPath + Path.GetFileName(picture.FileName);
+                String newPicName = picture.FileName;
+                // 检查上传文件的类型是否为合法图片。
+                String PicExtension = Path.GetExtension(newPicPath).ToLower();
+                String PicFilter = ConfigurationManager.AppSettings["FileFilter"];
+                if (PicFilter.IndexOf(PicExtension) <= -1)
+                {
+                    ViewBag.AddCourseErrorLog = "对不起！请上传图片！！";
+                    return false;
+                }
+                // 如果服务器上已经存在同名图片，则需要修改文件名与其储存路径。
+                while (System.IO.File.Exists(newPicPath))
+                {
+                    Random rand = new Random();
+                    newPicName = rand.Next().ToString() + "-" + picture.FileName;
+                    newPicPath = uploadPath + Path.GetFileName(newPicName);
+                }
+                // 把图片的存储路径保存到courseLogo中
+                TheCourse.courseLogo = newPicPath;
+                // 保存文件到服务器
+                picture.SaveAs(newPicPath);
+            }
+
+
+            #endregion
+
+            //更新课程数据。
+            #region
             TheCourse.courseName = courseName;
             TheCourse.courseStartTime = courseStartTime;
-            TheCourse.courseLogo = courseLogo;
             TheCourse.courseDescription = courseDescription;
             TheCourse.courseCode = courseCode;
             TheCourse.courseCredit = courseCredit;
@@ -167,7 +230,10 @@ namespace SchEduSys.Controllers
             TheCourse.courseGradingPolicy = courseGradingPolicy;
             TheCourse.courseRequirements = courseRequirements;
             schEduSysEntities.SaveChanges();
+            #endregion
+
             //删除courseandtopic表中所有关于这个课程的数据。
+            #region
             while (true)
             {
                 courseandtopic dcourseandtopic = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.courseId == TheCourse.courseId);
@@ -178,7 +244,10 @@ namespace SchEduSys.Controllers
                 schEduSysEntities.courseandtopic.Remove(dcourseandtopic);
                 schEduSysEntities.SaveChanges();
             }
+            #endregion
+
             //添加新的courseandtopic数据。
+            #region
             String[] courseTopicNames = courseTopicNameStr.Split('，');
             foreach (String courseTopicName in courseTopicNames)
             {
@@ -191,20 +260,35 @@ namespace SchEduSys.Controllers
                 schEduSysEntities.courseandtopic.Add(newcourseandtopic);
             }
             schEduSysEntities.SaveChanges();
+            #endregion
+
             return true;
         }
 
+
         //删除指定id的课程。
-        [HttpPost]
         public bool DropCourse(int courseId)
         {
+            //判断要删除的课程是否存在。
+            #region
             course course_drop = schEduSysEntities.course.Find(courseId);
             if (course_drop == null)
             {
                 ViewBag.DropCourseErrorLog = "要删除的课程不存在";
                 return false;
             }
+            #endregion
+
+            //删除课程图片。
+            #region
+            int index = course_drop.courseLogo.LastIndexOf('\\');
+            String PicName = course_drop.courseLogo.Substring(index + 1);
+            String PicPath = Server.MapPath("../Views/images/courseimages/" + PicName);
+            System.IO.File.Delete(PicPath);
+            #endregion
+
             //删除courseandTopic表的数据。
+            #region
             while (true)
             {
                 courseandtopic courseandtopic_drop = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.courseId == course_drop.courseId);
@@ -215,6 +299,7 @@ namespace SchEduSys.Controllers
                 schEduSysEntities.courseandtopic.Remove(courseandtopic_drop);
                 schEduSysEntities.SaveChanges();
             }
+            #endregion
             schEduSysEntities.course.Remove(course_drop);
             schEduSysEntities.SaveChanges();
             return true;

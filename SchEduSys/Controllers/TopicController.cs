@@ -12,9 +12,7 @@ namespace SchEduSys.Controllers
     {
         private SchEduSysEntities schEduSysEntities = new SchEduSysEntities();
 
-
         //添加一个课程类型，例如：计算机类
-        [HttpPost]
         public bool AddTopic(String topicName)
         {
             coursetopic topic_in = schEduSysEntities.coursetopic.FirstOrDefault(ct => ct.topicName == topicName);
@@ -41,7 +39,6 @@ namespace SchEduSys.Controllers
 
         
         //删除一个课程类型，例如：数学类
-        [HttpPost]
         public bool DropTopic(String topicName)
         {
             coursetopic topic_drop = schEduSysEntities.coursetopic.FirstOrDefault(tp => tp.topicName == topicName);
