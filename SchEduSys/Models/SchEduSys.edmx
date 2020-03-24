@@ -7,17 +7,16 @@
       <Schema Namespace="SchEduSysModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
-            <PropertyRef Name="AdminId" />
+            <PropertyRef Name="adminId" />
           </Key>
-          <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AdminName" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="AdminGender" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="AdminTelephone" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="AdminEmail" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="AdminPassword" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="AdminIdCard" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="AdminRealName" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="xxxx" Type="varchar" MaxLength="45" />
+          <Property Name="adminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adminName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="adminGender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="adminTelephone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="adminEmail" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="adminPassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="adminIdCard" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="adminRealName" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="course">
           <Key>
@@ -125,17 +124,16 @@
       <Schema Namespace="SchEduSysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="admin">
           <Key>
-            <PropertyRef Name="AdminId" />
+            <PropertyRef Name="adminId" />
           </Key>
-          <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AdminName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AdminGender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AdminTelephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AdminEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AdminPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AdminIdCard" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AdminRealName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="xxxx" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="adminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adminName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adminGender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adminTelephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adminEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adminPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adminIdCard" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adminRealName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="course">
           <Key>
@@ -251,15 +249,14 @@
           <EntitySetMapping Name="admin">
             <EntityTypeMapping TypeName="SchEduSysModel.admin">
               <MappingFragment StoreEntitySet="admin">
-                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
-                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
-                <ScalarProperty Name="AdminGender" ColumnName="AdminGender" />
-                <ScalarProperty Name="AdminTelephone" ColumnName="AdminTelephone" />
-                <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
-                <ScalarProperty Name="AdminPassword" ColumnName="AdminPassword" />
-                <ScalarProperty Name="AdminIdCard" ColumnName="AdminIdCard" />
-                <ScalarProperty Name="AdminRealName" ColumnName="AdminRealName" />
-                <ScalarProperty Name="xxxx" ColumnName="xxxx" />
+                <ScalarProperty Name="adminId" ColumnName="adminId" />
+                <ScalarProperty Name="adminName" ColumnName="adminName" />
+                <ScalarProperty Name="adminGender" ColumnName="adminGender" />
+                <ScalarProperty Name="adminTelephone" ColumnName="adminTelephone" />
+                <ScalarProperty Name="adminEmail" ColumnName="adminEmail" />
+                <ScalarProperty Name="adminPassword" ColumnName="adminPassword" />
+                <ScalarProperty Name="adminIdCard" ColumnName="adminIdCard" />
+                <ScalarProperty Name="adminRealName" ColumnName="adminRealName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
