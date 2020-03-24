@@ -4,15 +4,14 @@
     <EntitySetMapping Name="admin">
       <EntityTypeMapping TypeName="SchEduSysModel.admin">
         <MappingFragment StoreEntitySet="admin">
-          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
-          <ScalarProperty Name="AdminName" ColumnName="AdminName" />
-          <ScalarProperty Name="AdminGender" ColumnName="AdminGender" />
-          <ScalarProperty Name="AdminTelephone" ColumnName="AdminTelephone" />
-          <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
-          <ScalarProperty Name="AdminPassword" ColumnName="AdminPassword" />
-          <ScalarProperty Name="AdminIdCard" ColumnName="AdminIdCard" />
-          <ScalarProperty Name="AdminRealName" ColumnName="AdminRealName" />
-          <ScalarProperty Name="xxxx" ColumnName="xxxx" />
+          <ScalarProperty Name="adminId" ColumnName="adminId" />
+          <ScalarProperty Name="adminName" ColumnName="adminName" />
+          <ScalarProperty Name="adminGender" ColumnName="adminGender" />
+          <ScalarProperty Name="adminTelephone" ColumnName="adminTelephone" />
+          <ScalarProperty Name="adminEmail" ColumnName="adminEmail" />
+          <ScalarProperty Name="adminPassword" ColumnName="adminPassword" />
+          <ScalarProperty Name="adminIdCard" ColumnName="adminIdCard" />
+          <ScalarProperty Name="adminRealName" ColumnName="adminRealName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
