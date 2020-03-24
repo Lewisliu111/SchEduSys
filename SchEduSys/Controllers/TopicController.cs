@@ -37,7 +37,6 @@ namespace SchEduSys.Controllers
             return true;
         }
 
-        
         //删除一个课程类型，例如：数学类
         public bool DropTopic(String topicName)
         {
@@ -69,7 +68,7 @@ namespace SchEduSys.Controllers
         public bool ModifyTopic(String oldTopicName, String NewTopicName)
         {
             coursetopic topic_in = schEduSysEntities.coursetopic.FirstOrDefault(ct => ct.topicName == NewTopicName);
-            if (topic_in != null)
+            if (topic_in != null&&!oldTopicName.Equals(NewTopicName))
             {
                 ViewBag.ModifyTopicErrorLog = "新的课程类型已经存在！";
                 return false;

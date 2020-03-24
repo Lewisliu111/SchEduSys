@@ -97,6 +97,67 @@ namespace SchEduSys.Controllers
             ViewBag.admins = admins;
         }
 
+        //获得单个用户的信息。
+        public void GetAdminByName(String adminName)
+        {
+            admin admin_msg = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
+            ViewBag.admin_msg = admin_msg;
+        }
+        public void GetAdminById(int adminId)
+        {
+            admin admin_msg = schEduSysEntities.admin.Find(adminId);
+            ViewBag.admin_msg = admin_msg;
+        }
+
+        //根据Id修改用户基本信息。PS:不支持修改密码，真实姓名和身份证号！
+        public bool ModifyAdmin(int adminId,String adminName, String adminGender, String adminTelephone, String adminEmail)
+        {
+            admin TheAdmin = schEduSysEntities.admin.Find(adminId);
+            if (TheAdmin == null)
+            {
+                ViewBag.ModifyAdminErrorLog = "用户不存在！";
+                return false;
+            }
+            //判断新的adminName是否与其他账户有冲突。
+            if (!adminName.Equals(TheAdmin.adminName))
+            {
+                admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName==adminName);
+                if (admin_in != null)
+                {
+                    ViewBag.ModifyAdminErrorLog = "新的用户名已存在！";
+                    return false;
+                }
+                TheAdmin.adminName = adminName;
+            }
+
+            TheAdmin.adminGender = adminGender;
+
+            if (!adminTelephone.Equals(TheAdmin.adminTelephone))
+            {
+                admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone==adminTelephone);
+                if (admin_in != null)
+                {
+                    ViewBag.ModifyAdminErrorLog = "新的电话号码已存在！";
+                    return false;
+                }
+                TheAdmin.adminTelephone = adminTelephone;
+            }
+
+            if (!adminEmail.Equals(TheAdmin.adminEmail))
+            {
+                admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminEmail == adminEmail);
+                if (admin_in != null)
+                {
+                    ViewBag.ModifyAdminErrorLog = "新的Email已存在。";
+                    return false;
+                }
+                TheAdmin.adminEmail = adminEmail;
+            }
+            schEduSysEntities.SaveChanges();
+            return true;
+        }
+
+
         //找回密码验证
         [HttpPost]
         [ValidateAntiForgeryToken]

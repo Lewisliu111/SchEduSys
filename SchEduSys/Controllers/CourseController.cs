@@ -42,6 +42,7 @@ namespace SchEduSys.Controllers
             #endregion
 
             //若可以加入，则新建course对象
+            #region
             course newcourse = new course()
             {
                 courseName = courseName,
@@ -59,6 +60,7 @@ namespace SchEduSys.Controllers
                 courseGradingPolicy = courseGradingPolicy,
                 courseRequirements = courseRequirements
             };
+            #endregion
 
             //把图片存到服务器，并且获取地址，存入courseLogo。
             #region
@@ -118,7 +120,7 @@ namespace SchEduSys.Controllers
                 courseandtopic newcourseandtopic = new courseandtopic()
                 {
                     courseId = newcourse.courseId,
-                    topicId=course_topic_use.topicId
+                    topicId = course_topic_use.topicId
                 };
                 schEduSysEntities.courseandtopic.Add(newcourseandtopic);
             }
@@ -144,11 +146,14 @@ namespace SchEduSys.Controllers
 
             //判断新输入的课程代码是否已经存在。
             #region
-            course course_already_in = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
-            if (course_already_in != null)
+            if (!courseCode.Equals(TheCourse.courseCode))
             {
-                ViewBag.AddCourseErrorLog = "新的课程代码已存在，请重新输入！";
-                return false;
+                course course_already_in = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
+                if (course_already_in != null)
+                {
+                    ViewBag.AddCourseErrorLog = "新的课程代码已存在，请重新输入！";
+                    return false;
+                }
             }
             #endregion
 

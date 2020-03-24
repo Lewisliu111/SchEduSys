@@ -44,12 +44,17 @@ namespace SchEduSys.Controllers
         public bool ModifyDepartment(String oldDepartName,String newDepartName,DateTime departCreatedTime,int departCode)
         {
             department department_in = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == newDepartName);
-            if (department_in != null)
+            if (department_in != null&&!oldDepartName.Equals(newDepartName))
             {
                 ViewBag.ModifyDepartErrorLog = "要修改的学院名已经存在，请重新输入！";
                 return false;
             }
             department Thedepartment = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == oldDepartName);
+            if (Thedepartment == null)
+            {
+                ViewBag.ModifyDepartErrorLog = "要修改的学院不存在，请重新输入！";
+                return false;
+            }
             //修改course表
             while (true)
             {
