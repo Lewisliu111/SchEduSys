@@ -14,14 +14,13 @@ namespace SchEduSys.Models
     
     public partial class admin
     {
-        public int AdminId { get; set; }
-        public string AdminName { get; set; }
-        public string AdminGender { get; set; }
-        public string AdminTelephone { get; set; }
-        public string AdminEmail { get; set; }
-        public string AdminPassword { get; set; }
-        public string AdminIdCard { get; set; }
-        public string AdminRealName { get; set; }
-        public string xxxx { get; set; }
+        public int adminId { get; set; }
+        public string adminName { get; set; }
+        public string adminGender { get; set; }
+        public string adminTelephone { get; set; }
+        public string adminEmail { get; set; }
+        public string adminPassword { get; set; }
+        public string adminIdCard { get; set; }
+        public string adminRealName { get; set; }
     }
 }

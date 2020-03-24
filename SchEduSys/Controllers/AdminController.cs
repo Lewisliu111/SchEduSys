@@ -25,20 +25,20 @@ namespace SchEduSys.Controllers
         //添加用户
         public bool AddAdmin(String adminName, String adminPassword, String adminGender, String adminTelephone, String adminEmail, String adminRealName, String adminIdCard)
         {
-            admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.AdminName == adminName);
+            admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
             if (administrator != null)
             {
                 return false;
             }
             admin newadmin = new admin()
             {
-                AdminName = adminName,
-                AdminPassword = adminPassword,
-                AdminGender = adminGender,
-                AdminTelephone = adminTelephone,
-                AdminEmail = adminEmail,
-                AdminRealName = adminRealName,
-                AdminIdCard = adminIdCard
+                adminName = adminName,
+                adminPassword = adminPassword,
+                adminGender = adminGender,
+                adminTelephone = adminTelephone,
+                adminEmail = adminEmail,
+                adminRealName = adminRealName,
+                adminIdCard = adminIdCard
             }; try
             {
                 schEduSysEntities.admin.Add(newadmin);
@@ -56,7 +56,7 @@ namespace SchEduSys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(String adminName, String adminPassword, String adminCode)
         {
-            admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.AdminName == adminName);
+            admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
             if (String.IsNullOrEmpty(adminCode))
             {
                 return Content("验证码不能为空");
@@ -74,9 +74,9 @@ namespace SchEduSys.Controllers
                 String sessionSecurityCode = Session["SecurityCode"] as String;
                 if (administrator == null)
                 {
-                    return Content("用户名不存在");
+                    return Content("用户不存在");
                 }
-                if (administrator.AdminPassword != adminPassword)
+                if (administrator.adminPassword != adminPassword)
                 {
                     return Content("密码错误");
                 }
@@ -84,15 +84,54 @@ namespace SchEduSys.Controllers
                 {
                     return Content("验证码错误");
                 }
+                //将登录成功的用户加入session。
+                Session["loginInAdmin"] = administrator;
                 return View();
             }
         }
+
         //获得所有用户
         public void GetAllAdimin()
         {
             List<admin> admins = schEduSysEntities.admin.ToList();
             ViewBag.admins = admins;
         }
+
+        //找回密码验证
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public bool ResetPasswordCheck(String adminTelephone,String adminIdCard)
+        {
+            admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone == adminTelephone);
+            if (administrator == null)
+            {
+                ViewBag.ResetCheckErrorLog = "用户名不存在";
+                return false;
+            }
+            if (adminIdCard.Equals(administrator.adminIdCard))
+            {
+                ViewBag.resetAdminId = administrator.adminId;
+            }
+            return true;
+        }
+
+        //重置密码
+        [HttpPost]
+        public bool ResetPassword(String newPassword)
+        {
+            int resetAdminId = ViewBag.resetAdminId;//获取正准备重置的用户
+            admin administrator = schEduSysEntities.admin.Find(resetAdminId);
+            if(administrator==null)
+            {
+                ViewBag.ResetErrorLog = "要重置的用户不存在！";
+                return false;
+            }
+            administrator.adminPassword = newPassword;
+            schEduSysEntities.SaveChanges();
+            return true;
+        }
+
+        //验证码
         public ActionResult SecurityCode()
         {
             String oldcode = Session["SecurityCode"] as String;
@@ -125,7 +164,9 @@ namespace SchEduSys.Controllers
             return ms.ToArray();
         }
 
+        //创建随机验证码
         private String CreateRandomCode(int codeCount)
+
         {
             String allChar = "0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,W,X,Y,Z";
             String[] allCharArray = allChar.Split(',');
@@ -148,6 +189,7 @@ namespace SchEduSys.Controllers
             }
             return randomCode;
         }
+
         //创建验证码的图片
         public byte[] CreateValidateGraphic(String validateCode)
         {
