@@ -12,12 +12,12 @@ namespace SchEduSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class department
+    public partial class Department
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public department()
+        public Department()
         {
-            this.course = new HashSet<course>();
+            this.course = new HashSet<Course>();
         }
     
         public int departId { get; set; }
@@ -26,6 +26,6 @@ namespace SchEduSys.Models
         public int departCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<course> course { get; set; }
+        public virtual ICollection<Course> course { get; set; }
     }
 }

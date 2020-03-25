@@ -12,13 +12,13 @@ namespace SchEduSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class courseandtopic
+    public partial class Courseandtopic
     {
         public int id { get; set; }
         public int courseId { get; set; }
         public int topicId { get; set; }
     
-        public virtual course course { get; set; }
-        public virtual coursetopic coursetopic { get; set; }
+        public virtual Course course { get; set; }
+        public virtual Coursetopic coursetopic { get; set; }
     }
 }

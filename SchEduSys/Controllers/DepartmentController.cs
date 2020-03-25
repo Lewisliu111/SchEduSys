@@ -15,13 +15,13 @@ namespace SchEduSys.Controllers
         [HttpPost]
         public bool AddDepartment(String departName,DateTime departCreatedTime,int departCode)
         {
-            department department_in = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
+            Department department_in = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
             if (department_in != null)
             {
                 ViewBag.AddDepartErrorLog = "学院已经存在！";
                 return false;
             }
-            department newdepartment = new department()
+            Department newdepartment = new Department()
             {
                 departName = departName,
                 departCreatedTime = departCreatedTime,
@@ -43,13 +43,13 @@ namespace SchEduSys.Controllers
         [HttpPost]
         public bool ModifyDepartment(String oldDepartName,String newDepartName,DateTime departCreatedTime,int departCode)
         {
-            department department_in = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == newDepartName);
+            Department department_in = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == newDepartName);
             if (department_in != null&&!oldDepartName.Equals(newDepartName))
             {
                 ViewBag.ModifyDepartErrorLog = "要修改的学院名已经存在，请重新输入！";
                 return false;
             }
-            department Thedepartment = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == oldDepartName);
+            Department Thedepartment = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == oldDepartName);
             if (Thedepartment == null)
             {
                 ViewBag.ModifyDepartErrorLog = "要修改的学院不存在，请重新输入！";
@@ -58,7 +58,7 @@ namespace SchEduSys.Controllers
             //修改course表
             while (true)
             {
-                course course_modify = schEduSysEntities.course.FirstOrDefault(co => co.courseDepartmentName == oldDepartName);
+                Course course_modify = schEduSysEntities.course.FirstOrDefault(co => co.courseDepartmentName == oldDepartName);
                 if (course_modify == null)
                 {
                     break;
@@ -76,7 +76,7 @@ namespace SchEduSys.Controllers
         //删除一个学院。
         public bool DropDepartment(String departName)
         {
-            department department_drop = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
+            Department department_drop = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
             if (department_drop == null)
             {
                 ViewBag.DropDepartErrorLog = "要删除的学院不存在！";
@@ -85,7 +85,7 @@ namespace SchEduSys.Controllers
             //删除course表的数据
             while (true)
             {
-                course course_drop = schEduSysEntities.course.FirstOrDefault(co => co.courseDepartmentId == department_drop.departId);
+                Course course_drop = schEduSysEntities.course.FirstOrDefault(co => co.courseDepartmentId == department_drop.departId);
                 if (course_drop == null)
                 {
                     break;
@@ -102,7 +102,7 @@ namespace SchEduSys.Controllers
                 //删除courseandTopic表的数据。
                 while (true)
                 {
-                    courseandtopic courseandtopic_drop = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.courseId == course_drop.courseId);
+                    Courseandtopic courseandtopic_drop = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.courseId == course_drop.courseId);
                     if (courseandtopic_drop == null)
                     {
                         break;
@@ -123,20 +123,20 @@ namespace SchEduSys.Controllers
         //查询所有的学院。
         public void GetAllDepartment()
         {
-            List<department> departments = schEduSysEntities.department.ToList();
+            List<Department> departments = schEduSysEntities.department.ToList();
             ViewBag.departments = departments;
         }
 
         //查询指定学院的相关信息。
         public void GetDepartmentByName(String departName)
         {
-            department department_get = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
+            Department department_get = schEduSysEntities.department.FirstOrDefault(dp => dp.departName == departName);
             ViewBag.department_get = department_get;
         }
 
         public void GetDepartmentByCode(int departCode)
         {
-            department department_get = schEduSysEntities.department.FirstOrDefault(dp => dp.departCode == departCode);
+            Department department_get = schEduSysEntities.department.FirstOrDefault(dp => dp.departCode == departCode);
             ViewBag.department_get = department_get;
         }
     }

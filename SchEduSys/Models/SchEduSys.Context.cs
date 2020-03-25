@@ -25,10 +25,10 @@ namespace SchEduSys.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<admin> admin { get; set; }
-        public virtual DbSet<course> course { get; set; }
-        public virtual DbSet<courseandtopic> courseandtopic { get; set; }
-        public virtual DbSet<coursetopic> coursetopic { get; set; }
-        public virtual DbSet<department> department { get; set; }
+        public virtual DbSet<Admin> admin { get; set; }
+        public virtual DbSet<Course> course { get; set; }
+        public virtual DbSet<Courseandtopic> courseandtopic { get; set; }
+        public virtual DbSet<Coursetopic> coursetopic { get; set; }
+        public virtual DbSet<Department> department { get; set; }
     }
 }
