@@ -35,7 +35,8 @@ namespace SchEduSys.Models
         public string courseFAQ { get; set; }
         public string courseGradingPolicy { get; set; }
         public string courseRequirements { get; set; }
-    
+        public List<string> topics { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<courseandtopic> courseandtopic { get; set; }
         public virtual department department { get; set; }

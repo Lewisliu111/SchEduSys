@@ -309,5 +309,84 @@ namespace SchEduSys.Controllers
             schEduSysEntities.SaveChanges();
             return true;
         }
+
+        //查询课程。
+        public ActionResult Index()
+        {
+            var courseList = schEduSysEntities.course.SqlQuery("Select * from course limit 0, 8").ToList<course>();
+            foreach (var course in courseList)
+            {
+                var topicIds = schEduSysEntities.Database.SqlQuery<int>("Select topicId from courseandtopic").ToList<int>();
+                var topicnames = new List<string>();
+                foreach (var topicid in topicIds)
+                {
+                    var temp = schEduSysEntities.Database.SqlQuery<string>("Select topicName from coursetopic where topicId = " + topicid).ToList<string>();
+                    topicnames.Add(temp[0]);
+                }
+                course.topics = topicnames;
+            }
+            ViewBag.courseList = courseList;
+            return View("Index");
+        }
+
+        public ActionResult Detail(int id)
+        {
+            var topicIds = schEduSysEntities.Database.SqlQuery<int>("Select topicId from courseandtopic").ToList<int>();
+            var topicnames = new List<string>();
+            foreach (var topicid in topicIds)
+            {
+                var temp = schEduSysEntities.Database.SqlQuery<string>("Select topicName from coursetopic where topicId = " + topicid).ToList<string>();
+                topicnames.Add(temp[0]);
+            }
+            var c = schEduSysEntities.course.SqlQuery("select * from course where courseId = " + id).FirstOrDefault<course>();
+
+            c.topics = topicnames;
+
+
+            return View("Detail", c);
+        }
+
+
+        public ActionResult Search(String queryStr, String queryType)
+        {
+            var courseList = new List<course>();
+
+            if (queryType == null)
+            {
+                courseList = schEduSysEntities.course.SqlQuery("Select * from course"
+                     ).ToList<course>();
+
+                foreach (var course in courseList)
+                {
+                    var topicIds = schEduSysEntities.Database.SqlQuery<int>("Select topicId from courseandtopic").ToList<int>();
+                    var topicnames = new List<string>();
+                    foreach (var topicid in topicIds)
+                    {
+                        var temp = schEduSysEntities.Database.SqlQuery<string>("Select topicName from coursetopic where topicId = " + topicid).ToList<string>();
+                        topicnames.Add(temp[0]);
+                    }
+
+                    course.topics = topicnames;
+                }
+            }
+            else
+            {
+                courseList = schEduSysEntities.course.SqlQuery("Select * from course where " + queryType + "=" + queryStr
+                     ).ToList<course>();
+                foreach (var course in courseList)
+                {
+                    var topicIds = schEduSysEntities.Database.SqlQuery<int>("Select topicId from courseandtopic").ToList<int>();
+                    var topicnames = new List<string>();
+                    foreach (var topicid in topicIds)
+                    {
+                        var temp = schEduSysEntities.Database.SqlQuery<string>("Select topicName from coursetopic where topicId = " + topicid).ToList<string>();
+                        topicnames.Add(temp[0]);
+                    }
+                    course.topics = topicnames;
+                }
+            }
+            ViewBag.courseList = courseList;
+            return View("List");
+        }
     }
 }
