@@ -110,7 +110,7 @@ namespace SchEduSys.Controllers
         }
 
         //根据Id修改用户基本信息。PS:不支持修改密码，真实姓名和身份证号！
-        public bool ModifyAdmin(int adminId,String adminName, String adminGender, String adminTelephone, String adminEmail)
+        public bool ModifyAdmin(int adminId, String adminName, String adminGender, String adminTelephone, String adminEmail)
         {
             Admin TheAdmin = schEduSysEntities.admin.Find(adminId);
             if (TheAdmin == null)
@@ -121,7 +121,7 @@ namespace SchEduSys.Controllers
             //判断新的adminName是否与其他账户有冲突。
             if (!adminName.Equals(TheAdmin.adminName))
             {
-                Admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName==adminName);
+                Admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
                 if (admin_in != null)
                 {
                     ViewBag.ModifyAdminErrorLog = "新的用户名已存在！";
@@ -134,7 +134,7 @@ namespace SchEduSys.Controllers
 
             if (!adminTelephone.Equals(TheAdmin.adminTelephone))
             {
-                Admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone==adminTelephone);
+                Admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone == adminTelephone);
                 if (admin_in != null)
                 {
                     ViewBag.ModifyAdminErrorLog = "新的电话号码已存在！";
@@ -161,7 +161,7 @@ namespace SchEduSys.Controllers
         //找回密码验证
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public bool ResetPasswordCheck(String adminTelephone,String adminIdCard)
+        public bool ResetPasswordCheck(String adminTelephone, String adminIdCard)
         {
             Admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone == adminTelephone);
             if (administrator == null)
@@ -171,7 +171,7 @@ namespace SchEduSys.Controllers
             }
             if (adminIdCard.Equals(administrator.adminIdCard))
             {
-                ViewBag.resetAdminId = administrator.adminId;
+                Session["resetAdminId"] = administrator.adminId;
             }
             return true;
         }
@@ -180,9 +180,9 @@ namespace SchEduSys.Controllers
         [HttpPost]
         public bool ResetPassword(String newPassword)
         {
-            int resetAdminId = ViewBag.resetAdminId;//获取正准备重置的用户
+            int resetAdminId = Convert.ToInt32(Session["resetAdminId"]);//获取正准备重置的用户
             Admin administrator = schEduSysEntities.admin.Find(resetAdminId);
-            if(administrator==null)
+            if (administrator == null)
             {
                 ViewBag.ResetErrorLog = "要重置的用户不存在！";
                 return false;
