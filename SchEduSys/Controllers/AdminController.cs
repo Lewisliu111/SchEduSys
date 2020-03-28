@@ -23,6 +23,28 @@ namespace SchEduSys.Controllers
             return View();
         }
 
+        //获取重置密码验证页面
+        [HttpGet]
+        public ActionResult ResetPasswordCheck()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        //获取重置密码页面
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        //获取重置密码成功页面
+        public ActionResult ResetSucess()
+        {
+            return View();
+        }
+
+
         //添加用户
         public bool AddAdmin(String adminName, String adminPassword, String adminGender, String adminTelephone, String adminEmail, String adminRealName, String adminIdCard)
         {
@@ -54,7 +76,7 @@ namespace SchEduSys.Controllers
 
         //提交登录信息
         [HttpPost]
-        [ValidateAntiForgeryToken]
+//        [ValidateAntiForgeryToken]
         public ActionResult Login(String adminName, String adminPassword, String adminCode)
         {
             admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
@@ -87,9 +109,10 @@ namespace SchEduSys.Controllers
                 }
                 //将登录成功的用户加入session。
                 Session["loginInAdmin"] = administrator;
-                return View();
+                return Content("yes");
             }
         }
+
 
         //获得所有用户
         public void GetAllAdimin()
@@ -157,33 +180,36 @@ namespace SchEduSys.Controllers
             schEduSysEntities.SaveChanges();
             return true;
         }
-
-
         //找回密码验证
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public bool ResetPasswordCheck(String adminTelephone, String adminIdCard)
+        public ActionResult ResetPasswordCheck(String adminTelephone, String adminIdCard)
         {
             admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone == adminTelephone);
             if (administrator == null)
             {
-                ViewBag.ResetCheckErrorLog = "用户名不存在！";
-                return false;
+                return Content("身份验证失败！");
             }
             if (adminIdCard.Equals(administrator.adminIdCard))
             {
-                TempData["resetAdminId"] = administrator.adminId;
-                return true;
+                Session["resetAdminId"]= administrator.adminId;
+                return Content("yes");
             }
-            ViewBag.ResetCheckErrorLog = "身份证号码错误！";
-            return false;
+            return Content("身份证号码错误！");
         }
 
+
         //重置密码
-        [HttpPost]
         public bool ResetPassword(String newPassword)
         {
-            int resetAdminId = (int)TempData["resetAdminId"];//获取正准备重置的用户
+            int resetAdminId;
+            try
+            {
+                resetAdminId = Convert.ToInt32(Session["resetAdminId"].ToString());//获取正准备重置的用户
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             admin administrator = schEduSysEntities.admin.Find(resetAdminId);
             if (administrator == null)
             {

@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using SchEduSys.Models;
 
 namespace SchEduSys.Controllers
@@ -12,6 +14,35 @@ namespace SchEduSys.Controllers
     public class CourseController : Controller
     {
         private SchEduSysEntities schEduSysEntities = new SchEduSysEntities();
+
+        [HttpGet]
+        public ActionResult Manage()
+        {
+            List<course> courses = schEduSysEntities.course.ToList<course>();
+            ViewBag.courses = courses;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult AddCourse()
+        {
+
+            List<department> departments = schEduSysEntities.department.ToList();
+            ViewBag.departments = departments;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ModifyCourse(String courseId)
+        {
+            List<department> departments = schEduSysEntities.department.ToList();
+            ViewBag.departments = departments;
+            course modifyCourse = schEduSysEntities.course.Find(Convert.ToInt32(courseId));
+            Session["ModifyCourseId"] = modifyCourse.courseId;
+            return View();
+        }
+
+
         //课程有：
         //课程Id，课程Name，开设时间StartTime，课程图片Logo，课程描述Description，课程代码Code，课程学分Credit，开课年级Level，选修必修Type，课程学院Id，课程学院Name，课程学时Period，课程常见问题FAQ，课程毕业政策GradingPolicy，课程基础要求Requirements
         //新建课程要求输入：
@@ -141,8 +172,9 @@ namespace SchEduSys.Controllers
 
         //修改指定id的课程。
         [HttpPost]
-        public bool ModifyCourse(int courseId, String courseName, DateTime courseStartTime, String courseDescription, String courseCode,  String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
+        public ActionResult ModifyCourse(String courseName, DateTime courseStartTime, String courseDescription, String courseCode,  String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
         {
+            int courseId = Convert.ToInt32(Session["ModifyCourseId"].ToString());
             String departmentName = Request.Form["departmentName"].ToString();
             String courseType = Request.Form["courseType"].ToString();
             String courseLevel = Request.Form["courseLevel"].ToString();
@@ -155,7 +187,7 @@ namespace SchEduSys.Controllers
             if (TheCourse == null)
             {
                 ViewBag.ModifyCourseErrorLog = "要修改的课程不存在！";
-                return false;
+                return null;
             }
             #endregion
 
@@ -167,7 +199,7 @@ namespace SchEduSys.Controllers
                 if (course_already_in != null)
                 {
                     ViewBag.AddCourseErrorLog = "新的课程代码已存在，请重新输入！";
-                    return false;
+                    return null;
                 }
             }
             #endregion
@@ -178,7 +210,7 @@ namespace SchEduSys.Controllers
             if (department_in == null)
             {
                 ViewBag.AddCourseErrorLog = "新的学院不存在，请先创建学院！";
-                return false;
+                return null;
             }
             #endregion
 
@@ -196,7 +228,7 @@ namespace SchEduSys.Controllers
             if (Request.Files.Count == 0)
             {
                 ViewBag.AddCourseErrorLog = "没上传新的课程图片，请上传！";
-                return false;
+                return null;
             }
             // 保存文件到"/Views/Picture/CoursePics/"文件夹
             for (int i = 0; i < Request.Files.Count; ++i)
@@ -206,7 +238,7 @@ namespace SchEduSys.Controllers
                 if (picture.FileName == "")
                 {
                     ViewBag.AddCourseErrorLog = "没有选择上传文件";
-                    return false;
+                    return null;
                 }
                 String newPicPath = uploadPath + Path.GetFileName(picture.FileName);
                 String newPicName = picture.FileName;
@@ -216,7 +248,7 @@ namespace SchEduSys.Controllers
                 if (PicFilter.IndexOf(PicExtension) <= -1)
                 {
                     ViewBag.AddCourseErrorLog = "对不起！请上传图片！！";
-                    return false;
+                    return null;
                 }
                 // 如果服务器上已经存在同名图片，则需要修改文件名与其储存路径。
                 while (System.IO.File.Exists(newPicPath))
@@ -282,20 +314,23 @@ namespace SchEduSys.Controllers
             schEduSysEntities.SaveChanges();
             #endregion
 
-            return true;
+
+            List<course> courses = schEduSysEntities.course.ToList<course>();
+            ViewBag.courses = courses;
+            return View("Manage");
         }
 
 
         //删除指定id的课程。
-        public bool DropCourse(int courseId)
+        public ActionResult DropCourse(String courseId)
         {
             //判断要删除的课程是否存在。
             #region
-            course course_drop = schEduSysEntities.course.Find(courseId);
+            course course_drop = schEduSysEntities.course.Find(Convert.ToInt32(courseId));
             if (course_drop == null)
             {
                 ViewBag.DropCourseErrorLog = "要删除的课程不存在";
-                return false;
+                return null;
             }
             #endregion
 
@@ -322,10 +357,13 @@ namespace SchEduSys.Controllers
             #endregion
             schEduSysEntities.course.Remove(course_drop);
             schEduSysEntities.SaveChanges();
-            return true;
+            List<course> courses = schEduSysEntities.course.ToList<course>();
+            ViewBag.courses = courses;
+            return View("Manage");
         }
 
         //查询课程。
+        [HttpGet]
         public ActionResult Index()
         {
             var courseList = schEduSysEntities.course.SqlQuery("Select * from course limit 0, 8").ToList<course>();
@@ -353,25 +391,24 @@ namespace SchEduSys.Controllers
                 var temp = schEduSysEntities.Database.SqlQuery<string>("Select topicName from coursetopic where topicId = " + topicid).ToList<string>();
                 topicnames.Add(temp[0]);
             }
-            var c = schEduSysEntities.course.SqlQuery("select * from course where courseId = " + id).FirstOrDefault<course>();
+            var course = schEduSysEntities.course.SqlQuery("select * from course where courseId = " + id).FirstOrDefault<course>();
 
-            c.topics = topicnames;
-
-
-            return View("Detail", c);
+            course.topics = topicnames;
+            ViewBag.course = course;
+            return View("Detail");
         }
 
 
-        public ActionResult Search(String queryStr, String queryType)
+        //唯一更改 Course控制器的Search函数
+        public ActionResult Search(String queryStr, String queryType, int startIndex, int pageSize)
         {
-            var courseList = new List<course>();
-
+            var coursePage = new List<course>();
+            int totalPage;
             if (queryType == null)
             {
-                courseList = schEduSysEntities.course.SqlQuery("Select * from course"
-                     ).ToList<course>();
-
-                foreach (var course in courseList)
+                coursePage = schEduSysEntities.course.OrderBy(m => m.courseId).Skip(startIndex).Take(pageSize).ToList<course>();
+                totalPage = schEduSysEntities.course.Count() / pageSize;
+                foreach (var course in coursePage)
                 {
                     var topicIds = schEduSysEntities.Database.SqlQuery<int>("Select topicId from courseandtopic").ToList<int>();
                     var topicnames = new List<string>();
@@ -380,15 +417,16 @@ namespace SchEduSys.Controllers
                         var temp = schEduSysEntities.Database.SqlQuery<string>("Select topicName from coursetopic where topicId = " + topicid).ToList<string>();
                         topicnames.Add(temp[0]);
                     }
-
                     course.topics = topicnames;
                 }
             }
             else
             {
-                courseList = schEduSysEntities.course.SqlQuery("Select * from course where " + queryType + "=" + queryStr
-                     ).ToList<course>();
-                foreach (var course in courseList)
+                coursePage = schEduSysEntities.course.SqlQuery("Select * from course where " + queryType + "=" + queryStr
+                     ).Skip(startIndex).Take(pageSize).ToList<course>();
+                totalPage = schEduSysEntities.course.SqlQuery("Select * from course where " + queryType + "=" + queryStr
+                     ).Count() / pageSize;
+                foreach (var course in coursePage)
                 {
                     var topicIds = schEduSysEntities.Database.SqlQuery<int>("Select topicId from courseandtopic").ToList<int>();
                     var topicnames = new List<string>();
@@ -400,8 +438,14 @@ namespace SchEduSys.Controllers
                     course.topics = topicnames;
                 }
             }
-            ViewBag.courseList = courseList;
-            return View("List");
+
+            ViewBag.coursePage = coursePage;
+            ViewBag.totalPage = totalPage;
+            ViewBag.startIndex = startIndex;
+            ViewBag.queryStr = queryStr;
+            ViewBag.queryType = queryType;
+            return View();
         }
+
     }
 }

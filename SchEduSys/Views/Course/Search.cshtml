@@ -1,0 +1,238 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <title>课程列表</title>
+    <script type="text/javascript" src="~/Content/js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="~/Content/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="~/Content/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+    <style>
+        .container {
+            width: 90%;
+            position: relative;
+            left: 5%;
+        }
+    </style>
+    <style>
+        nav.top {
+            background-color: #2f4435;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+            nav.top span {
+                color: silver;
+                margin: 0px 10px 0px 10px;
+            }
+
+            nav.top a {
+                color: #999;
+                margin: 0px 10px 0px 10px;
+            }
+
+            nav.top button {
+                width: 50px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+        .container {
+            width: 90%;
+            height: 900px;
+        }
+
+        table {
+            margin-left: 10px;
+            width: 90%;
+            height: 900px;
+            text-align: center;
+            background-color: #a6e1ec;
+        }
+    </style>
+    
+
+</head>
+<body>
+    <nav class="top">
+        <span style="margin-left:20px;"><a href="/Admin/Login">登录</a></span>
+        <div style="float:right; margin-right:30px">
+            <span>查找课程 类型：</span>
+            <select id="queryType">
+                <option value="courseName">课程名称</option>
+                <option value="courseCredit">课程学分</option>
+                <option value="courseLevel">研究生or本科</option>
+                <option value="courseType">选修or必修</option>
+                <option value="courseDepartmentName">学院</option>
+                <option value="coursePeriod">学时</option>
+            </select>
+            <input type="text" placeholder=" course" style="border-radius:8px" id="queryStr">
+            <button id="btn">查询</button>
+        </div>
+    </nav>
+    <img src="~/Content/images/title.png">
+    <div class="container">
+        <table>
+            <tr>
+                <td style="border:none;">
+                    <a href="#" id="a0"><img width="150px" height="220px" id="img0" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span0"></span>
+                </td>
+                <td style="border:none;">
+                    <a href="#" id="a1"><img width="150px" height="220px" id="img1" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span1"></span>
+                </td>
+                <td style="border:none;">
+                    <a href="#" id="a2"><img width="150px" height="220px" id="img2" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span2"></span>
+                </td>
+                <td style="border:none;">
+                    <a href="#" id="a3"><img width="150px" height="220px" id="img3" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span3"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border:none;">
+                    <a href="#" id="a4"><img width="150px" height="220px" id="img4" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span4"></span>
+                </td>
+                <td style="border:none;">
+                    <a href="#" id="a5"><img width="150px" height="220px" id="img5" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span5"></span>
+                </td>
+                <td style="border:none;">
+                    <a href="#" id="a6"><img width="150px" height="220px" id="img6" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span6"></span>
+                </td>
+                <td style="border:none;">
+                    <a href="#" id="a7"><img width="150px" height="220px" id="img7" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span7"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border:none;">
+                    <a href="#" id="a8"><img width="150px" height="220px" id="img8" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span8"></span>
+                </td>
+                <td style="border:none;">
+                    <a href="#" id="a9"><img width="150px" height="220px" id="img9" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span9"></span>
+                </td>
+                <td style="border:none;">
+                    <a href="#" id="a10"><img width="150px" height="220px" id="img10" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span10"></span>
+                </td>
+                <td style="border:none;">
+                    <a href="#" id="a11"><img width="150px" height="220px" id="img11" visibility="hidden" style="border:none;"></a>
+                    <br>
+                    <span id="span11"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <nav aria-label="...">
+        <ul class="pager">
+            <li><a href="#" id="ap">Previous</a></li>
+            <li><a href="#" id="an">Next</a></li>
+        </ul>
+    </nav>
+    <img src="~/Content/images/bottom.png">
+    
+    <script type="text/javascript">
+        var flag = -1;
+        @foreach (var item in ViewBag.coursePage) {
+            <text>
+        flag++
+		@*$("#a1").attr("href", "/Course/Detail?id="@item.courseId");
+            $("#img1").attr("src", "@item.courseLogo");*@
+		document.getElementById("a" + flag).setAttribute("href", "/Course/Detail?id="+ "@item.courseId");
+        var img = document.getElementById("img" + flag);
+        img.setAttribute("visibility", "visible");
+        img.setAttribute("src", "@item.courseLogo");
+		document.getElementById('span' + flag ).innerHTML = "@item.courseName";
+            </text>
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                var str = $("#queryStr").val();
+                var obj = $("#queryType").val();
+                window.location.href = "/Course/Search?queryStr=" + str + "&&queryType=" + obj + "&&startIndex=0&&pageSize=12";
+            });
+        });
+    </script>
+</body>
+<script>
+				$("#an").click(function(){
+                    if (@ViewBag.startIndex< @ViewBag.totalPage) {
+                        @*//$.ajax({
+                        //    url: "/Course/Search",
+                        //    data: { "startIndex": count-1, "pageSize": size },
+                        //    success: function () {
+                        //        var flag3 = -1;
+                        //  //      @foreach (var item in ViewBag.coursePage) {
+                                    <text>
+                          //      flag3++
+                          //      //document.getElementById("a" + flag3).setAttribute("href", "/Course/Detail?id=" + "@item.courseId");
+                                //document.getElementById("img" + flag3).setAttribute("src", "@item.courseLogo");
+                                //document.getElementById('span' + flag3).innerHTML = "@item.courseName";
+
+                            //    //    </text>
+                                }
+                            //}
+                        });*@
+                        var a =@ViewBag.startIndex + 12;
+                        var b = @ViewBag.queryStr;
+                        var c = @ViewBag.queryType;
+                        window.location.href = "/Course/Search?queryStr="+b+ "&queryType="+c+"&startIndex=" + a + "&pageSize=12";
+					}
+					else{
+						alert("当前是最尾页了！");
+					}
+				});
+				$("#ap").click(function(){
+					if(@ViewBag.startIndex>0) {
+						@*$.ajax({
+							url: "/Course/Search",
+							data: {"startIndex": count+1,"pageSize":12},
+                            success: function () {
+                                var flag1 = -1;
+                                @foreach (var item in ViewBag.coursePage) {
+                                    <text>
+		                        flag1++
+                                document.getElementById("a" + flag1).setAttribute("href", "/Course/Detail?id="+ "@item.courseId");
+                                document.getElementById("img" + flag1).setAttribute("src", "@item.courseLogo");
+                                document.getElementById('span' + flag1 ).innerHTML = "@item.courseName";
+
+                                    </text>
+                                }
+                            }
+						});*@
+                        var a =@ViewBag.startIndex -12;
+                        var b = @ViewBag.queryStr;
+                        var c = @ViewBag.queryType;
+                        window.location.href = "/Course/Search?queryStr="+b+ "&queryType="+c+"&startIndex=" + a + "&pageSize=12";
+					}
+					else{
+						alert("当前是最前页了！");
+					}
+				});
+</script>
+</html>

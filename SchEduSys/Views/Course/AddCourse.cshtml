@@ -1,0 +1,278 @@
+﻿
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>添加课程</title>
+    <link rel="stylesheet" href="~/Content/css/layui.css">
+    <script src="~/Content/layui.js"></script>
+
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header" style="height:80px ;background-color: #005521">
+            <div class="layui-nav layui-input-inline" style="height: 80px">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" style="color: white">
+                        <img src="~/Content/images/icon.jpg" class="layui-nav-img" style="width: 50px;height: 50px">
+                        管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                        <dd><a href="">退出</a></dd>
+                    </dl>
+                </li>
+            </div>
+            <ul class="layui-nav layui-layout-left">
+                <img src="~/Content/images/hbdx.jpg" style="width: 250px;height: 80px">
+            </ul>
+            <div class="layui-input-inline">
+                <label class="layui-form-label" style="width: 200px;color: white;
+      text-align: center;font-size: 20px;color:white;font-family: STKaiti;padding-left: 400px">学生成绩管理系统</label>
+            </div>
+        </div>
+
+
+        <div class="layui-side layui-bg-black" style="padding-top:20px;width: 220px">
+            <div class="layui-side-scroll" style="background-color: #005521">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test" style="width: 220px;background-color: #005521">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">课程管理</a>
+                        @*<dl class="layui-nav-child">
+                                <dd><a href="javascript:;">列表一</a></dd>
+                                <dd><a href="javascript:;">列表二</a></dd>
+                                <dd><a href="javascript:;">列表三</a></dd>
+                                <dd><a href="">超链接</a></dd>
+                            </dl>*@
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">学院管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">列表一</a></dd>
+                            <dd><a href="javascript:;">列表二</a></dd>
+                            <dd><a href="">超链接</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="">个人中心</a></li>
+                    <li class="layui-nav-item"><a href="">关于</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body" style="padding-top: 25px; padding-left: 30px">
+            <!-- 内容主体区域 -->
+            <div style="position: relative; left:15%;top:10%">
+
+                <form name="onlyform" action="/Course/AddCourse" method="post" enctype="multipart/form-data" class="layui-form">
+                    <div class="layui-input-inline">
+                        <div class="layui-form-item" style="width: 310px">
+                            <label class="layui-form-label">开课学院:</label>
+                            <div class="layui-input-block">
+                                <select id="departmentName" name="departmentName" lay-filter="departmentName" lay-verify="required">
+                                    <option value=""></option>
+                                    @foreach (var item in ViewBag.departments)
+                                    {
+                                        <option value="@item.departName">@item.departName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" style="width: 310px">
+                            <label class="layui-form-label">课程类型:</label>
+                            <div class="layui-input-block">
+                                <select id="courseType" name="courseType" lay-filter="courseType" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">必修</option>
+                                    <option value="1">公选</option>
+                                    <option value="2">专选</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">课程编号:</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="courseCode" name="courseCode" required lay-verify="required"
+                                       placeholder="请输入课程编号" autocomplete="off" class="layui-input"
+                                       style="width: 200px">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">课程要求:</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="courseRequirements" name="courseRequirements" required lay-verify="required"
+                                       class="layui-input-inline layui-input" style="width: 200px">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">评分标准:</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="courseGradingPolicy" name="courseGradingPolicy" required lay-verify="required"
+                                       class="layui-input-inline layui-input" style="width: 200px">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">课程描述:</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="courseDescription" name="courseDescription" required lay-verify="required"
+                                       class="layui-input-inline layui-input" style="width: 200px">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="layui-input-inline">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">频繁的问题:</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="courseFAQ" name="courseFAQ" required lay-verify="required"
+                                       class="layui-input-inline layui-input" style="width: 200px">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">开课时间:</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="courseStartTime" name="courseStartTime" required lay-verify="required"
+                                       class="layui-input-inline layui-input" style="width: 200px">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">课程名:</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="courseName" name="courseName" required lay-verify="required"
+                                       placeholder="请输入课程名" autocomplete="off" class="layui-input"
+                                       style="width: 200px">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" style="width: 310px">
+                            <label class="layui-form-label">年级:</label>
+                            <div class="layui-input-block">
+                                <select id="courseLevel" name="courseLevel" lay-filter="courseLevel" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">2019</option>
+                                    <option value="1">2018</option>
+                                    <option value="2">2017</option>
+                                    <option value="3">2016</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" style="width: 310px">
+                            <label class="layui-form-label">学时:</label>
+                            <div class="layui-input-block">
+                                <select id="coursePeriod" name="coursePeriod" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">18</option>
+                                    <option value="1">24</option>
+                                    <option value="2">36</option>
+                                    <option value="3">48</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: 310px">
+                            <label class="layui-form-label">学分:</label>
+                            <div class="layui-input-block">
+                                <select id="courseCredit" name="courseCredit" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">1</option>
+                                    <option value="1">1.5</option>
+                                    <option value="2">2</option>
+                                    <option value="3">2.5</option>
+                                    <option value="4">3</option>
+                                    <option value="5">3.5</option>
+                                    <option value="6">4</option>
+                                    <option value="7">6</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">课程类别:</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="courseTopicNameStr" name="courseTopicNameStr" required lay-verify="required"
+                                   class="layui-input-inline layui-input" placeholder="编程,生物" style="width: 200px">
+                        </div>
+
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">课程图片:</label>
+                        <div class="layui-input-block">
+                            @*邪魔歪道操作，让label替代input type=‘file’的样式*@
+                            <label for="getFile" class="layui-btn">选择文件</label>
+                            <input type="file" id="getFile" name="coursePic" style="display:none;">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="submit" id="submit" class="layui-btn" value="立即提交">
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+        </div>
+    </div>
+
+    <script>
+
+        window.onload = function () {
+
+            var o_btn = document.getElementById("submit");
+            var errorlog = '@ViewBag.AddCourseErrorLog';
+
+            o_btn.addEventListener("click", function () {
+
+                alert(errorlog)
+
+            }, false)
+
+        }
+
+    </script>
+<script type="text/javascript">
+ 
+</script>
+<script type="text/javascript">
+//JavaScript代码区域
+
+
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+
+
+    layui.use('form', function () {
+        var form = layui.form;
+
+        layer.msg(JSON.stringify(data.field));
+
+        return false;
+    });
+
+</script>
+
+
+</body>
+</html>

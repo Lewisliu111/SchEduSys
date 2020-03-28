@@ -1,0 +1,165 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <title>详细页</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap/3.3.6/bootstrap.min.css" />
+    <script src="~/Content/js/jquery/2.0.0/jquery.min.js"></script>
+    <script src="~/Content/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+    <style>
+        nav.top {
+            background-color: #2f4435;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+            nav.top span {
+                color: silver;
+                margin: 0px 10px 0px 10px;
+            }
+
+            nav.top a {
+                color: #999;
+                margin: 0px 10px 0px 10px;
+            }
+
+            nav.top button {
+                width: 50px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+        .container {
+            height: 400px;
+            width: 90%;
+            margin: 0 5% 10px 5%;
+        }
+
+        table {
+            width: 90%;
+            height: 90%;
+            margin: 20px 0 20px 0;
+        }
+
+        .btn {
+            width:150px;
+            margin-left:65%;
+        }
+        .away {
+            margin-left: 50px;
+            margin-top:10px;
+            width: 70%;
+            font-size:30px;
+            font-family:Consolas;
+        }
+        pre {
+            white-space: pre-wrap;
+            margin-top: 10px;
+            word-wrap: break-word;
+            font-size: 30px;
+            font-family: Consolas;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top">
+        <span style="margin-left:20px;"><a href="/Admin/Login">登录</a></span>
+        <div style="float:right; margin-right:30px">
+            <span>查找课程 类型：</span>
+            <select id="queryType">
+                <option value="courseName">课程名称</option>
+                <option value="courseCredit">课程学分</option>
+                <option value="courseLevel">研究生or本科</option>
+                <option value="courseType">选修or必修</option>
+                <option value="courseDepartmentName">学院</option>
+                <option value="coursePeriod">学时</option>
+            </select>
+            <input type="text" placeholder=" course" style="border-radius:8px" id="queryStr">
+            <button id="btn">查询</button>
+        </div>
+    </nav>
+    <img src="~/Content/images/title.png" style="width:100%;">
+    <div class="container">
+        <table>
+            <tr>
+                <td width="40%" height="260px" align="right"><img style="width:150px;height:250px;" src="@ViewBag.course.courseLogo" /></td>
+                <td width="60%" rowspan="2"><div class="away"><pre>@ViewBag.course.courseDescription</pre></div></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                        详细信息
+                    </button>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">详细信息</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <ul>
+                                        <li>
+                                            课程：@ViewBag.course.courseName
+                                        </li>
+                                        <li>
+                                            课程code：@ViewBag.course.courseCode
+                                        </li>
+                                        <li>
+                                            学分：@ViewBag.course.courseCredit
+                                        </li>
+                                        <li>
+                                            年级：@ViewBag.course.courseLevel
+                                        </li>
+                                        <li>
+                                            类型：@ViewBag.course.courseType
+                                        </li>
+                                        <li>
+                                            学院：@ViewBag.course.courseDepartmentName
+                                        </li>
+                                        <li>
+                                            学时：@ViewBag.course.coursePeriod
+                                        </li>
+                                        <li>
+                                            开始时间：@ViewBag.course.courseStartTime
+                                        </li>
+                                        <li>
+                                            评分标准：@ViewBag.course.courseGradingPolicy
+                                        </li>
+                                        <li>
+                                            课程要求：@ViewBag.course.courseRequirements
+                                        </li>
+                                        <li>
+                                            频繁提出的问题：@ViewBag.course.courseFAQ
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <img src="~/Content/images/bottom.png" style="width:100%;height:18%;">>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                var str = $("#queryStr").val();
+                var obj = $("#queryType").val();
+                window.location.href = "/Course/Search?queryStr=" + str + "&&queryType=" + obj + "&&startIndex=0&&pageSize=12";
+            });
+        });
+    </script>
+</body>
+</html>

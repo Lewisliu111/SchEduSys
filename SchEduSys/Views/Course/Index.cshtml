@@ -1,0 +1,430 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+        <meta charset="utf-8" />
+        <title>首页</title>
+        <link rel="stylesheet" type="text/css" href="~/Content/css/public.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/css/style.css" />
+        <script type="text/javascript" src="~/Content/js/jquery/2.0.0/jquery.min.js"></script>
+        <script type="text/javascript" src="~/Content/js/index.js"></script>
+        <style>
+            .gundongBox {
+                width: 100%;
+                height: 110px;
+                margin: auto;
+                top: 1248px;
+                position: absolute;
+                overflow: hidden;
+                align: center;
+            }
+
+            .gundongList {
+                position: absolute;
+                animation: geiwogun 14s linear infinite;
+                white-space: nowrap;
+            }
+
+                .gundongList span {
+                    font-size: 20px;
+                    color: #000;
+                    padding: 5px 10px
+                }
+
+            @@keyframes geiwogun {
+                from {
+                    transform: translate(0, 0);
+                }
+
+                to {
+                    transform: translate(-40%, 0);
+                }
+            }
+
+            nav.top {
+                background-color: #2f4435;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+                nav.top span {
+                    color: silver;
+                    margin: 0px 10px 0px 10px;
+                }
+
+                nav.top a {
+                    color: #999;
+                    margin: 0px 10px 0px 10px;
+                }
+
+                nav.top button {
+                    width: 50px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                }
+
+            .show {
+                margin: auto;
+                width: 80%;
+                height: 500px;
+                text-align: center;
+            }
+
+            .floatright {
+                float: right;
+            }
+
+            .container {
+                width: 100%;
+                height: 600px;
+                background-color: white;
+            }
+
+            .w1200 {
+                margin: auto;
+            }
+
+            .bottom {
+                width: 100%;
+                position: absolute;
+                top: 2050px;
+            }
+
+            .homeWrap {
+                position: absolute;
+                top: 80px;
+            }
+            .back {
+                margin-left: 5%;
+                width:100%;
+            }
+        </style>
+</head>
+<body>
+    <!--top-->
+            
+    <div><img src="~/Content/images/bottom.png" class="bottom"></div>
+    <div>
+        <nav class="top">
+            <span style="margin-left:20px;"><a href="/Admin/Login">登录</a></span>
+            <div style="float:right; margin-right:30px">
+                <span>查找课程 类型：</span>
+                <select id="queryType">
+                    <option value="courseName">课程名称</option>
+                    <option value="courseCredit">课程学分</option>
+                    <option value="courseLevel">研究生or本科</option>
+                    <option value="courseType">选修or必修</option>
+                    <option value="courseDepartmentName">学院</option>
+                    <option value="coursePeriod">学时</option>
+                </select>
+                <input type="text" placeholder=" course" style="border-radius:8px" id="queryStr">
+                <button id="btn">查询</button>
+            </div>
+        </nav>
+
+    </div>
+    <!--/top-->
+    <!--logo-->
+    <img style="width:100%" src="~/Content/images/title.png" />
+
+    <!--/logo-->
+    <div class="back"><img src="~/Content/images/back.jpg" /></div>
+    <!--main-->
+    <!--主页-->
+    <div class="box" id="home">
+
+        <div class="homeBox">
+
+
+            <div class="homeWrap">
+                <div class="w1200">
+
+                    <div class="homeTab">
+
+                        <!--科研成果-->
+                        <div class="box" id="sci">
+                            <div class="w1200">
+                                <div class="sciHead">
+                                    <ul>
+                                        <li><a href="javascript:">获奖信息</a></li>
+                                        <li class="on"><a href="javascript:">科研项目</a></li>
+                                        <li><a href="javascript:">著作成果</a></li>
+                                    </ul>
+                                </div>
+                                <div class="sciBox">
+                                    <div class="sciWrap">
+                                        <ul class="clearfloat">
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会年全国高分子学术论文报告会11</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会11</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会11</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会11</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="sciWrap">
+                                        <ul class="clearfloat">
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会22</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会22</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会22</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会22</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会22</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="sciWrap">
+                                        <ul class="clearfloat">
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会33</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会33</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会33</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="sciTime">
+                                                    <h3>03-29</h3>
+                                                    <p>2020</p>
+                                                </div>
+                                                <div class="sciInner">
+                                                    <h3><a href="">2020年全国高分子学术论文报告会33</a></h3>
+                                                    <p>为积极应对新福建建设对人才培养提出的新要求，我校充分挖掘各学科专业的潜力和优势…</p>
+                                                    <h4><span>陈老师</span>学科门类：物理学</h4>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="floatright"><a href="/Course/Search?startIndex=0&pageSize=12">more>></a></div>
+                                    <table class="show">
+                                        <tr style="margin-top:20px">
+                                            <td><a href="/Course/Detail?id=@ViewBag.courseList[0].courseId"><img width="150px" height="220px" src="@ViewBag.courseList[0].courseLogo" /></a></td>
+                                            <td><a href="/Course/Detail?id=@ViewBag.courseList[1].courseId"><img width="150px" height="220px" src="@ViewBag.courseList[1].courseLogo" /></a></td>
+                                            <td><a href="/Course/Detail?id=@ViewBag.courseList[2].courseId"><img width="150px" height="220px" src="@ViewBag.courseList[2].courseLogo" /></a></td>
+                                            <td><a href="/Course/Detail?id=@ViewBag.courseList[3].courseId"><img width="150px" height="220px" src="@ViewBag.courseList[3].courseLogo" /></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="/Course/Detail?id=@ViewBag.courseList[4].courseId"><img width="150px" height="220px" src="@ViewBag.courseList[4].courseLogo" /></a></td>
+                                            <td><a href="/Course/Detail?id=@ViewBag.courseList[5].courseId"><img width="150px" height="220px" src="@ViewBag.courseList[5].courseLogo" /></a></td>
+                                            <td><a href="/Course/Detail?id=@ViewBag.courseList[6].courseId"><img width="150px" height="220px" src="@ViewBag.courseList[6].courseLogo" /></a></td>
+                                            <td><a href="/Course/Detail?id=@ViewBag.courseList[7].courseId"><img width="150px" height="220px" src="@ViewBag.courseList[7].courseLogo" /></a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="gundong">
+                                    <div class="gundongBox">
+                                        <div class="gundongList">
+                                            <img src="~/Content/images/1.png">
+                                            <img src="~/Content/images/2.png">
+                                            <img src="~/Content/images/3.png">
+                                            <img src="~/Content/images/4.png">
+                                            <img src="~/Content/images/5.png">
+                                            <img src="~/Content/images/6.png">
+                                            <img src="~/Content/images/3.png">
+                                            <img src="~/Content/images/4.png">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--/科研成果-->
+                        <!--/main-->
+
+
+                    </div>
+                    <script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
+                    <script type="text/javascript">
+                        //banner
+                        jQuery(".sliderBox1").slide({ mainCell: ".bd ul", autoPlay: true, effect: "leftLoop" });
+                        //热点主页
+                        jQuery(".sliderBox2").slide({ mainCell: ".bd ul", effect: "leftLoop", vis: 4, scroll: 1 });
+
+
+
+                    </script>
+                    <script>
+                        $(document).ready(function () {
+                            $("#btn").click(function () {
+                                var str = $("#queryStr").val();
+                                var obj = $("#queryType").val();
+                                window.location.href = "/Course/Search?queryStr=" + str + "&&queryType=" + obj + "&&startIndex=0&&pageSize=12";
+                            });
+                        });
+                    </script>
+</body>
+</html>

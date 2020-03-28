@@ -151,3 +151,5 @@ C:\Users\chenwenao\source\repos\SchEduSys\SchEduSys\obj\Debug\SchEduSys.csprojAs
 C:\Users\chenwenao\source\repos\SchEduSys\SchEduSys\obj\Debug\SchEduSys.csproj.CopyComplete
 C:\Users\chenwenao\source\repos\SchEduSys\SchEduSys\obj\Debug\SchEduSys.dll
 C:\Users\chenwenao\source\repos\SchEduSys\SchEduSys\obj\Debug\SchEduSys.pdb
+C:\Users\chenwenao\source\repos\SchEduSys\SchEduSys\bin\Newtonsoft.Json.dll
+C:\Users\chenwenao\source\repos\SchEduSys\SchEduSys\bin\Newtonsoft.Json.xml
