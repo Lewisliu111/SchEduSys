@@ -15,13 +15,18 @@ namespace SchEduSys.Controllers
         //课程有：
         //课程Id，课程Name，开设时间StartTime，课程图片Logo，课程描述Description，课程代码Code，课程学分Credit，开课年级Level，选修必修Type，课程学院Id，课程学院Name，课程学时Period，课程常见问题FAQ，课程毕业政策GradingPolicy，课程基础要求Requirements
         //新建课程要求输入：
-        //课程Name，开设时间StartTime，课程图片Logo，课程描述Description，课程代码Code，课程学分Credit，开课年级Level，选修必修Type，课程学院Name，课程学时Period，课程常见问题FAQ，课程毕业政策GradingPolicy，课程基础要求Requirements
+        //课程Name，开设时间StartTime，课程描述Description，课程代码Code，课程学分Credit，开课年级Level，选修必修Type，课程学院Name，课程学时Period，课程常见问题FAQ，课程毕业政策GradingPolicy，课程基础要求Requirements
 
 
         //新建一个课程。
         [HttpPost]
-        public bool AddCourse(String courseName, DateTime courseStartTime, String courseLogo, String courseDescription, String courseCode, float courseCredit, String courseLevel, String courseType, String departmentName, int coursePeriod, String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
+        public bool AddCourse(String courseName, DateTime courseStartTime, String courseLogo, String courseDescription, String courseCode , String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
         {
+            String departmentName=Request.Form["departmentName"].ToString();
+            String courseType = Request.Form["courseType"].ToString();
+            String courseLevel = Request.Form["courseLevel"].ToString();
+            int coursePeriod = Convert.ToInt32(Request.Form["coursePeriod"].ToString());
+            float courseCredit = (float)Convert.ToSingle(Request.Form["courseCredit"].ToString());
             ViewBag.AddCourseErrorLog = null;
             //判断该课程是否可以加入。
             #region
@@ -117,6 +122,11 @@ namespace SchEduSys.Controllers
             foreach (String courseTopicName in courseTopicNames)
             {
                 coursetopic course_topic_use = schEduSysEntities.coursetopic.FirstOrDefault(cat => cat.topicName == courseTopicName);
+                if (course_topic_use == null)
+                {
+                    ViewBag.AddCourseErrorLog = "课程类型错误或课程类型不存在，请重新输入！";
+                    return false;
+                }
                 courseandtopic newcourseandtopic = new courseandtopic()
                 {
                     courseId = newcourse.courseId,
@@ -131,8 +141,13 @@ namespace SchEduSys.Controllers
 
         //修改指定id的课程。
         [HttpPost]
-        public bool ModifyCourse(int courseId, String courseName, DateTime courseStartTime, String courseDescription, String courseCode, float courseCredit, String courseLevel, String courseType, String departmentName, int coursePeriod, String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
+        public bool ModifyCourse(int courseId, String courseName, DateTime courseStartTime, String courseDescription, String courseCode,  String courseFAQ, String courseGradingPolicy, String courseRequirements, String courseTopicNameStr)
         {
+            String departmentName = Request.Form["departmentName"].ToString();
+            String courseType = Request.Form["courseType"].ToString();
+            String courseLevel = Request.Form["courseLevel"].ToString();
+            int coursePeriod = Convert.ToInt32(Request.Form["coursePeriod"].ToString());
+            float courseCredit = (float)Convert.ToSingle(Request.Form["courseCredit"].ToString());
             ViewBag.ModifyCourseErrorLog = null;
             //判断要修改的课程是否存在。
             #region
