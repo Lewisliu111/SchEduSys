@@ -12,18 +12,18 @@ namespace SchEduSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Coursetopic
+    public partial class coursetopic
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Coursetopic()
+        public coursetopic()
         {
-            this.courseandtopic = new HashSet<Courseandtopic>();
+            this.courseandtopic = new HashSet<courseandtopic>();
         }
     
         public int topicId { get; set; }
         public string topicName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Courseandtopic> courseandtopic { get; set; }
+        public virtual ICollection<courseandtopic> courseandtopic { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web.Mvc;
 using SchEduSys.Models;
 
+
 namespace SchEduSys.Controllers
 {
 
@@ -25,12 +26,12 @@ namespace SchEduSys.Controllers
         //添加用户
         public bool AddAdmin(String adminName, String adminPassword, String adminGender, String adminTelephone, String adminEmail, String adminRealName, String adminIdCard)
         {
-            Admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
+            admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
             if (administrator != null)
             {
                 return false;
             }
-            Admin newadmin = new Admin()
+            admin newadmin = new admin()
             {
                 adminName = adminName,
                 adminPassword = adminPassword,
@@ -56,7 +57,7 @@ namespace SchEduSys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(String adminName, String adminPassword, String adminCode)
         {
-            Admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
+            admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
             if (String.IsNullOrEmpty(adminCode))
             {
                 return Content("验证码不能为空");
@@ -93,26 +94,26 @@ namespace SchEduSys.Controllers
         //获得所有用户
         public void GetAllAdimin()
         {
-            List<Admin> admins = schEduSysEntities.admin.ToList();
+            List<admin> admins = schEduSysEntities.admin.ToList();
             ViewBag.admins = admins;
         }
 
         //获得单个用户的信息。
         public void GetAdminByName(String adminName)
         {
-            Admin admin_msg = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
+            admin admin_msg = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
             ViewBag.admin_msg = admin_msg;
         }
         public void GetAdminById(int adminId)
         {
-            Admin admin_msg = schEduSysEntities.admin.Find(adminId);
+            admin admin_msg = schEduSysEntities.admin.Find(adminId);
             ViewBag.admin_msg = admin_msg;
         }
 
         //根据Id修改用户基本信息。PS:不支持修改密码，真实姓名和身份证号！
         public bool ModifyAdmin(int adminId, String adminName, String adminGender, String adminTelephone, String adminEmail)
         {
-            Admin TheAdmin = schEduSysEntities.admin.Find(adminId);
+            admin TheAdmin = schEduSysEntities.admin.Find(adminId);
             if (TheAdmin == null)
             {
                 ViewBag.ModifyAdminErrorLog = "用户不存在！";
@@ -121,7 +122,7 @@ namespace SchEduSys.Controllers
             //判断新的adminName是否与其他账户有冲突。
             if (!adminName.Equals(TheAdmin.adminName))
             {
-                Admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
+                admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminName == adminName);
                 if (admin_in != null)
                 {
                     ViewBag.ModifyAdminErrorLog = "新的用户名已存在！";
@@ -134,7 +135,7 @@ namespace SchEduSys.Controllers
 
             if (!adminTelephone.Equals(TheAdmin.adminTelephone))
             {
-                Admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone == adminTelephone);
+                admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone == adminTelephone);
                 if (admin_in != null)
                 {
                     ViewBag.ModifyAdminErrorLog = "新的电话号码已存在！";
@@ -145,7 +146,7 @@ namespace SchEduSys.Controllers
 
             if (!adminEmail.Equals(TheAdmin.adminEmail))
             {
-                Admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminEmail == adminEmail);
+                admin admin_in = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminEmail == adminEmail);
                 if (admin_in != null)
                 {
                     ViewBag.ModifyAdminErrorLog = "新的Email已存在。";
@@ -163,25 +164,27 @@ namespace SchEduSys.Controllers
         [ValidateAntiForgeryToken]
         public bool ResetPasswordCheck(String adminTelephone, String adminIdCard)
         {
-            Admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone == adminTelephone);
+            admin administrator = schEduSysEntities.admin.FirstOrDefault(ad => ad.adminTelephone == adminTelephone);
             if (administrator == null)
             {
-                ViewBag.ResetCheckErrorLog = "用户名不存在";
+                ViewBag.ResetCheckErrorLog = "用户名不存在！";
                 return false;
             }
             if (adminIdCard.Equals(administrator.adminIdCard))
             {
-                Session["resetAdminId"] = administrator.adminId;
+                TempData["resetAdminId"] = administrator.adminId;
+                return true;
             }
-            return true;
+            ViewBag.ResetCheckErrorLog = "身份证号码错误！";
+            return false;
         }
 
         //重置密码
         [HttpPost]
         public bool ResetPassword(String newPassword)
         {
-            int resetAdminId = Convert.ToInt32(Session["resetAdminId"]);//获取正准备重置的用户
-            Admin administrator = schEduSysEntities.admin.Find(resetAdminId);
+            int resetAdminId = (int)TempData["resetAdminId"];//获取正准备重置的用户
+            admin administrator = schEduSysEntities.admin.Find(resetAdminId);
             if (administrator == null)
             {
                 ViewBag.ResetErrorLog = "要重置的用户不存在！";

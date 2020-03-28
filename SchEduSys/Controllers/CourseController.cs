@@ -25,7 +25,7 @@ namespace SchEduSys.Controllers
             ViewBag.AddCourseErrorLog = null;
             //判断该课程是否可以加入。
             #region
-            Course course_already_in = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
+            course course_already_in = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
             if (course_already_in != null)
             {
                 ViewBag.AddCourseErrorLog = "课程代码已存在，请重新输入！";
@@ -33,7 +33,7 @@ namespace SchEduSys.Controllers
             }
             //判断学院是否存在。
 
-            Department department_in = schEduSysEntities.department.FirstOrDefault(de => de.departName == departmentName);
+            department department_in = schEduSysEntities.department.FirstOrDefault(de => de.departName == departmentName);
             if (department_in == null)
             {
                 ViewBag.AddCourseErrorLog = "学院不存在，请先创建学院！";
@@ -43,7 +43,7 @@ namespace SchEduSys.Controllers
 
             //若可以加入，则新建course对象
             #region
-            Course newcourse = new Course()
+            course newcourse = new course()
             {
                 courseName = courseName,
                 courseStartTime = courseStartTime,
@@ -116,8 +116,8 @@ namespace SchEduSys.Controllers
             String[] courseTopicNames = courseTopicNameStr.Split('，');
             foreach (String courseTopicName in courseTopicNames)
             {
-                Coursetopic course_topic_use = schEduSysEntities.coursetopic.FirstOrDefault(cat => cat.topicName == courseTopicName);
-                Courseandtopic newcourseandtopic = new Courseandtopic()
+                coursetopic course_topic_use = schEduSysEntities.coursetopic.FirstOrDefault(cat => cat.topicName == courseTopicName);
+                courseandtopic newcourseandtopic = new courseandtopic()
                 {
                     courseId = newcourse.courseId,
                     topicId = course_topic_use.topicId
@@ -136,7 +136,7 @@ namespace SchEduSys.Controllers
             ViewBag.ModifyCourseErrorLog = null;
             //判断要修改的课程是否存在。
             #region
-            Course TheCourse = schEduSysEntities.course.Find(courseId);
+            course TheCourse = schEduSysEntities.course.Find(courseId);
             if (TheCourse == null)
             {
                 ViewBag.ModifyCourseErrorLog = "要修改的课程不存在！";
@@ -148,7 +148,7 @@ namespace SchEduSys.Controllers
             #region
             if (!courseCode.Equals(TheCourse.courseCode))
             {
-                Course course_already_in = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
+                course course_already_in = schEduSysEntities.course.FirstOrDefault(co => co.courseCode == courseCode);
                 if (course_already_in != null)
                 {
                     ViewBag.AddCourseErrorLog = "新的课程代码已存在，请重新输入！";
@@ -159,7 +159,7 @@ namespace SchEduSys.Controllers
 
             //判断新的学院是否不存在。
             #region
-            Department department_in = schEduSysEntities.department.FirstOrDefault(de => de.departName == departmentName);
+            department department_in = schEduSysEntities.department.FirstOrDefault(de => de.departName == departmentName);
             if (department_in == null)
             {
                 ViewBag.AddCourseErrorLog = "新的学院不存在，请先创建学院！";
@@ -241,7 +241,7 @@ namespace SchEduSys.Controllers
             #region
             while (true)
             {
-                Courseandtopic dcourseandtopic = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.courseId == TheCourse.courseId);
+                courseandtopic dcourseandtopic = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.courseId == TheCourse.courseId);
                 if (dcourseandtopic == null)
                 {
                     break;
@@ -256,8 +256,8 @@ namespace SchEduSys.Controllers
             String[] courseTopicNames = courseTopicNameStr.Split('，');
             foreach (String courseTopicName in courseTopicNames)
             {
-                Coursetopic course_topic_use = schEduSysEntities.coursetopic.FirstOrDefault(cat => cat.topicName == courseTopicName);
-                Courseandtopic newcourseandtopic = new Courseandtopic()
+                coursetopic course_topic_use = schEduSysEntities.coursetopic.FirstOrDefault(cat => cat.topicName == courseTopicName);
+                courseandtopic newcourseandtopic = new courseandtopic()
                 {
                     courseId = TheCourse.courseId,
                     topicId = course_topic_use.topicId
@@ -276,7 +276,7 @@ namespace SchEduSys.Controllers
         {
             //判断要删除的课程是否存在。
             #region
-            Course course_drop = schEduSysEntities.course.Find(courseId);
+            course course_drop = schEduSysEntities.course.Find(courseId);
             if (course_drop == null)
             {
                 ViewBag.DropCourseErrorLog = "要删除的课程不存在";
@@ -296,7 +296,7 @@ namespace SchEduSys.Controllers
             #region
             while (true)
             {
-                Courseandtopic courseandtopic_drop = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.courseId == course_drop.courseId);
+                courseandtopic courseandtopic_drop = schEduSysEntities.courseandtopic.FirstOrDefault(cat => cat.courseId == course_drop.courseId);
                 if (courseandtopic_drop == null)
                 {
                     break;
@@ -313,7 +313,7 @@ namespace SchEduSys.Controllers
         //查询课程。
         public ActionResult Index()
         {
-            var courseList = schEduSysEntities.course.SqlQuery("Select * from course limit 0, 8").ToList<Course>();
+            var courseList = schEduSysEntities.course.SqlQuery("Select * from course limit 0, 8").ToList<course>();
             foreach (var course in courseList)
             {
                 var topicIds = schEduSysEntities.Database.SqlQuery<int>("Select topicId from courseandtopic").ToList<int>();
@@ -338,7 +338,7 @@ namespace SchEduSys.Controllers
                 var temp = schEduSysEntities.Database.SqlQuery<string>("Select topicName from coursetopic where topicId = " + topicid).ToList<string>();
                 topicnames.Add(temp[0]);
             }
-            var c = schEduSysEntities.course.SqlQuery("select * from course where courseId = " + id).FirstOrDefault<Course>();
+            var c = schEduSysEntities.course.SqlQuery("select * from course where courseId = " + id).FirstOrDefault<course>();
 
             c.topics = topicnames;
 
@@ -349,12 +349,12 @@ namespace SchEduSys.Controllers
 
         public ActionResult Search(String queryStr, String queryType)
         {
-            var courseList = new List<Course>();
+            var courseList = new List<course>();
 
             if (queryType == null)
             {
                 courseList = schEduSysEntities.course.SqlQuery("Select * from course"
-                     ).ToList<Course>();
+                     ).ToList<course>();
 
                 foreach (var course in courseList)
                 {
@@ -372,7 +372,7 @@ namespace SchEduSys.Controllers
             else
             {
                 courseList = schEduSysEntities.course.SqlQuery("Select * from course where " + queryType + "=" + queryStr
-                     ).ToList<Course>();
+                     ).ToList<course>();
                 foreach (var course in courseList)
                 {
                     var topicIds = schEduSysEntities.Database.SqlQuery<int>("Select topicId from courseandtopic").ToList<int>();
